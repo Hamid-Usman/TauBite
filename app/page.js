@@ -10,7 +10,7 @@ export default function Home() {
             <Image src={eating} alt="eating" width={210} height={210} className=""/>
             <div>
             <h1 className="text-3xl font-bold text-center">Welcome to TAU Bites</h1>
-            <p className="text-center text-gray-500">Login to continue</p>
+            <p className="text-center text-gray-500">Food delivery service for TAU</p>
             <div className="flex flex-col gap-4 mt-5">
                 <input
                 type="text"

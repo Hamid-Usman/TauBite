@@ -12,7 +12,7 @@ export default function Page() {
         { id: 2, image: food, name: "Salmon", rating: 20, price: 3000 },
     ];
     return (
-        <div className="flex py-2 flex-col px-3 sm:px-14 lg:px-28">
+        <div className="flex flex-col">
             <div className="flex flex-col">
                 <h3 className="text-lg">Welcome back!</h3>
                 <p className="text-xl font-extralight">

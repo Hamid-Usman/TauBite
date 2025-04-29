@@ -4,13 +4,32 @@ import { useModalStore } from "@/store/useModalStore";
 import Image from "next/image";
 import { useCounterStore } from "@/store/useCounterStore";
 import { CiStar } from "react-icons/ci";
+import useCartStore from "@/store/useCartState";
 
 
-const SpringModal = () => {
-  const { count, increment, decrement } = useCounterStore()
-  const { isOpen, modalData, closeModal } = useModalStore()
-  const totalPrice = (modalData?.price ?? 0) * count
-  
+const SpringModal = ({data}) => {
+    const { count, increment, decrement } = useCounterStore()
+    const { isOpen, modalData, closeModal } = useModalStore()
+    const { addToCart } = useCartStore()
+    const totalPrice = (modalData?.price ?? 0) * count
+    
+    
+    const handleAddToCart = () => {
+        if (!modalData) return;
+
+        for (let i = 0; i < count; i++) {
+            addToCart({
+              id: modalData.id,
+              name: modalData.name,
+              price: modalData.price,
+              image: modalData.image,
+            });
+          }
+
+        console.log(`${modalData.name} x${count} added to cart`);
+        closeModal(); // Optional: close after adding
+    };
+
   return (
     <AnimatePresence>
       {isOpen && (
@@ -57,7 +76,7 @@ const SpringModal = () => {
                   <button onClick={increment} type="button" className="cursor-pointer rounded-full w-8 h-8 bg-dark text-white">+</button>
                 </div>
                 <button
-                  onClick={closeModal}
+                  onClick={handleAddToCart}
                   className="bg-primary hover:bg-primary-fade transition duration-300 text-white hover:opacity-90 w-full py-2 rounded-full"
                 >
                   Add to cart

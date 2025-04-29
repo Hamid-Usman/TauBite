@@ -47,9 +47,7 @@ export default function RootLayout({ children }) {
                     />
                 </head>
                 <body>
-                    <main className="py-2 px-3 sm:px-14 lg:px-28 flex flex-col gap-[32px]">
                     {children}
-                    </main>
                 </body>
             </html>
         );

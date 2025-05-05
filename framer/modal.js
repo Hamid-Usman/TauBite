@@ -9,7 +9,7 @@ import { Backdrop } from "./backdrop";
 
 
 const SpringModal = ({data}) => {
-    const { count, increment, decrement } = useCounterStore()
+    const { count, increment, decrement, reset } = useCounterStore()
     const { isOpen, modalData, closeModal } = useModalStore()
     const { addToCart } = useCartStore()
     const totalPrice = (modalData?.price ?? 0) * count
@@ -28,29 +28,36 @@ const SpringModal = ({data}) => {
           }
 
         console.log(`${modalData.name} x${count} added to cart`);
+        reset()
         closeModal(); // Optional: close after adding
     };
+
+    const handleCloseModal = (e) => {
+        reset()
+        e.stopPropagation()
+        closeModal()
+    }
 
   return (
     <AnimatePresence>
       {isOpen && (
-        <Backdrop onClick={closeModal}>
+        <Backdrop onClick={handleCloseModal}>
           <motion.div
             initial={{ y: 50, transition: { duration: 0.5 } }}
             animate={{ y: -50, rotate: "0deg" }}
             exit={{ y: 50, rotate: "0deg" }}
             onClick={(e) => e.stopPropagation()}
-            className="bg-white text-dark p-4 h-fit rounded-lg w-full max-w-lg shadow-xl cursor-default relative overflow-hidden"
+            className="bg-white text-dark p-4 h-fit rounded-lg w-[320px] max-w-lg shadow-xl cursor-default relative overflow-hidden"
           >
             <div className="relative z-10">
-              <div className="bg-white w-fit h-fit mb-2 rounded-full text-3xl grid place-items-center mx-auto">
+              <div className="bg-white w-full h-full mb-2 rounded-full text-3xl grid place-items-center mx-auto">
                 
               <Image
-                    src={modalData.image.src}
+                    src={modalData.image}
                     alt={modalData.name}
-                    className=""
-                    width={500}
-                    height={100}
+                    className="w-full h-[250px]"
+                    width={50}
+                    height={50}
                   />
               </div>
               <h3 className="text-2xl font-bold mb-2">
@@ -59,10 +66,12 @@ const SpringModal = ({data}) => {
               <p className=" mb-6">
                 lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatibus. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatibus.
               </p>
+              {/*
               <div className="flex items-center">
                 <CiStar size={15} className="text-warning"/>
                 {modalData.rating}
               </div>
+              **/}
               <div className="my-2 flex items-center gap-5">
                 <h3 className="font-bold text-lg">N{totalPrice}</h3>
                 <div className="bg-gray-200 w-fit rounded-full flex gap-2 items-center">

@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useCounterStore } from "@/store/useCounterStore";
 import { CiStar } from "react-icons/ci";
 import useCartStore from "@/store/useCartState";
+import { Backdrop } from "./backdrop";
 
 
 const SpringModal = ({data}) => {
@@ -33,13 +34,7 @@ const SpringModal = ({data}) => {
   return (
     <AnimatePresence>
       {isOpen && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          onClick={closeModal}
-          className="bg-slate-900/20 backdrop-blur px-4 pt-20 fixed inset-0 z-50 flex items-center justify-center overflow-y-scroll cursor-pointer"
-        >
+        <Backdrop onClick={closeModal}>
           <motion.div
             initial={{ y: 50, transition: { duration: 0.5 } }}
             animate={{ y: -50, rotate: "0deg" }}
@@ -86,7 +81,7 @@ const SpringModal = ({data}) => {
               </div>
             </div>
           </motion.div>
-        </motion.div>
+        </Backdrop>
       )}
     </AnimatePresence>
   );

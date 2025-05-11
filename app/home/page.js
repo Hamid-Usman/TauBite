@@ -5,7 +5,7 @@ import { MenuItem } from "@/components/menuItem";
 import SpringModal from "@/framer/modal";
 import { useModalStore } from "@/store/useModalStore";
 import { useFoodsStore } from "@/store/useFoodsStore";
-import useGetFoods from "@/api/getFoods";
+import useGetFoods from "@/app/api/getFoods";
 import { useEffect } from "react";
 
 export default function Page() {

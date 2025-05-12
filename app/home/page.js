@@ -11,7 +11,7 @@ import { useAuthStore } from "@/store/useAuthStorage";
 
 export default function Page() {
     const { openModal } = useModalStore();
-    const { data: foods, isLoading, isError } = useGetFoods();
+    const { data:foods, isLoading, isError } = useGetFoods();
     const setFood = useFoodsStore((state) => state.setFood);
     const { user, token, fetchUser } = useAuthStore();
 
@@ -21,6 +21,13 @@ export default function Page() {
         }
     }, [token, user, fetchUser]);
 
+    
+    useEffect(() => {
+        if (foods) {
+            setFood(foods);
+        }
+    }, [foods, setFood]);
+    
     if (isLoading) {
         return <div>Loading...</div>;
     }

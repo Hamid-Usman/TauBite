@@ -1,23 +1,21 @@
 "use client"
 import Image from "next/image";
-import eating from "../public/svg/eating.svg"
+import eating from "../../../public/svg/eating.svg"
 import { SpotlightButton } from "@/framer/spotlight";
 import Link from "next/link";
 import { useState } from "react";
 import { useAuthStore } from "@/store/useAuthStorage";
 import { useRouter } from "next/navigation";
-
 export default function Home() {
 
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
-    const { register, loading, error } = useAuthStore()
-
-    const router = useRouter()
+    const { login, loading, error } = useAuthStore()
+    const router = useRouter() 
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        await register(email, password)
+        await login(email, password)
     }
     return (
         <div className="flex px-3 sm:px-14 lg:px-28 min-h-screen justify-center items-center">
@@ -43,10 +41,10 @@ export default function Home() {
                     className="border-2 border-primary rounded-md p-2 focus:outline-none focus:border-primary transition duration-500 ease-in-out"
                     />
                     <button type="submit" className="px-6 py-2 font-semibold bg-primary hover:bg-primary-fade active:bg-primary-fade text-white  transition-all duration-500 ease-in-out shadow-[3px_3px_0px_black] active:shadow-none active:translate-x-[3px] active:translate-y-[3px]">
-                    {loading ? "Creating account..." : "Submit"}
+                    {loading ? "Validating..." : "Log in" }
                     </button>
-                    { error && <p className="text-red">{error}</p> }
-                    <p>Already have an account? Login in <Link href={""} className="text-primary">here</Link> </p>
+                    { error ? <p>{error}</p>: "" }
+                    <p>No account? <Link href={""} className="text-primary">Sign up</Link> </p>
                 </div>
                 </div>
             </form>

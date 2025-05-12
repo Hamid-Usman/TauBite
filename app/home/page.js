@@ -1,23 +1,25 @@
 "use client";
+
+import { useEffect } from "react";
 import { TbAdjustmentsSearch } from "react-icons/tb";
-import food from "../../public/img/food.jpg";
 import { MenuItem } from "@/components/menuItem";
 import SpringModal from "@/framer/modal";
 import { useModalStore } from "@/store/useModalStore";
 import { useFoodsStore } from "@/store/useFoodsStore";
-import useGetFoods from "@/app/api/getFoods";
-import { useEffect } from "react";
+import useGetFoods from "../api/getFoods";
+import { useAuthStore } from "@/store/useAuthStorage"; 
 
 export default function Page() {
     const { openModal } = useModalStore();
     const { data: foods, isLoading, isError } = useGetFoods();
     const setFood = useFoodsStore((state) => state.setFood);
+    const { user, token, fetchUser } = useAuthStore();
 
     useEffect(() => {
-        if (foods) {
-            setFood(foods);
+        if (token && !user) {
+            fetchUser();
         }
-    }, [foods, setFood]);
+    }, [token, user, fetchUser]);
 
     if (isLoading) {
         return <div>Loading...</div>;
@@ -30,7 +32,9 @@ export default function Page() {
     return (
         <div className="flex flex-col">
             <div className="flex flex-col">
-                <h3 className="text-lg">Welcome back!</h3>
+                <h3 className="text-lg">
+                    Welcome back{user ? `, ${user.email}` : ""}!
+                </h3>
                 <p className="text-xl font-extralight">
                     Get the <span className="font-bold">Best Bites</span> Around TAU
                 </p>

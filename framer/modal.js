@@ -27,7 +27,6 @@ const SpringModal = ({ data }) => {
     // Payload for adding to the cart
     const payload = {
         food_item: modalData.id, // Use modalData.id for the food item
-        customer: 1, // Replace with the actual customer ID if available
         quantity: count, // Use the count as the quantity
       };
 

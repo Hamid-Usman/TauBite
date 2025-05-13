@@ -1,9 +1,9 @@
 'use client'
 import useGetCart from "@/app/api/getCart";
 import food from "../../../public/img/food.jpg";
-import { CartItem } from "@/components/cart/cartItem";
+import { CartItem } from "@/components/cart/cartItem"; 
 import { useCartList } from "@/store/useCartItems";
-import { useAuthStore } from "@/store/useAuthStorage";
+import useAuthStore from "@/store/useUserStore";
 import { useEffect } from "react";
 
 function Cart() {

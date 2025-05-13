@@ -4,7 +4,7 @@ import eating from "../public/svg/eating.svg"
 import { SpotlightButton } from "@/framer/spotlight";
 import Link from "next/link";
 import { useState } from "react";
-import { useAuthStore } from "@/store/useAuthStorage";
+import useAuthStore from "@/store/useAuthStore";
 import { useRouter } from "next/navigation";
 
 export default function Home() {

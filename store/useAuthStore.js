@@ -1,30 +1,35 @@
-"use client"
-import { create } from 'zustand';
-import axios from 'axios';
-import { useRouter } from 'next/navigation';
+"use client";
+export const dynamic = "force-dynamic";
+import { create } from "zustand";
+import axios from "axios";
 
-const isBrowser = typeof window !== 'undefined';
+const isBrowser = typeof window !== "undefined"; // Check if in the browser
 const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
-export const useAuthStore = create((set, get) => ({
-  user: null,
-  token: isBrowser ? localStorage.getItem('auth_token') : null,
+const useAuthStore = create((set, get) => ({
+  user: null, // Access localStorage only in the browser
+  token: null,
   loading: false,
   error: null,
 
   login: async (email, password) => {
     set({ loading: true, error: null });
     try {
-      const res = await axios.post(`${apiUrl}/auth/token/login/`, { email, password });
+      const res = await axios.post(`${apiUrl}/auth/token/login/`, {
+        email,
+        password,
+      });
       const { auth_token } = res.data;
 
-      localStorage.setItem('auth_token', auth_token);
+      if (isBrowser) {
+        window.localStorage.setItem("auth_token", auth_token); // Access localStorage only in the browser
+      }
+
       set({ token: auth_token });
 
       await get().fetchUser();
-      console.log('works')
     } catch (err) {
-      set({ error: err.response?.data?.message || 'Login failed' });
+      set({ error: err.response?.data?.detail || "Login failed" });
     } finally {
       set({ loading: false });
     }
@@ -38,10 +43,9 @@ export const useAuthStore = create((set, get) => ({
         password,
         re_password: password,
       });
-      console.log('works')
       return res.data;
     } catch (err) {
-      set({ error: err.response?.data?.message || 'Registration failed' });
+      set({ error: err.response?.data?.detail || "Registration failed" });
     } finally {
       set({ loading: false });
     }
@@ -59,13 +63,19 @@ export const useAuthStore = create((set, get) => ({
       });
       set({ user: res.data });
     } catch (err) {
-      localStorage.removeItem('auth_token');
+      if (isBrowser) {
+         window.localStorage.removeItem("auth_token"); // Access localStorage only in the browser
+      }
       set({ user: null, token: null });
     }
   },
 
   logout: () => {
-    localStorage.removeItem('auth_token');
+    if (isBrowser) {
+       window.localStorage.removeItem("auth_token"); // Access localStorage only in the browser
+    }
     set({ user: null, token: null });
   },
 }));
+
+export default useAuthStore

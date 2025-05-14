@@ -1,31 +1,19 @@
+// store/useUserStore.js
+"use client";
 import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
-const useUserStore = create((set, get) => ({
-  user: null,
-  token: null,
-
-  setUser: (user) => set({ user }),
-  setToken: (token) => set({ token }),
-
-  loadTokenFromStorage: async () => {
-    const storedToken = localStorage.getItem("auth_token");
-    if (storedToken) {
-      set({ token: storedToken });
-
-      try {
-        const res = await axios.get(`${apiUrl}/auth/users/me/`, {
-          headers: {
-            Authorization: `Token ${storedToken}`,
-          },
-        });
-        set({ user: res.data });
-      } catch (error) {
-        console.error("Failed to fetch user:", error);
-        localStorage.removeItem("auth_token");
-        set({ user: null, token: null });
-      }
+const useUserStore = create(
+  persist(
+    (set) => ({
+      user: null,
+      setUser: (newUser) => set({ user: newUser }),
+    }),
+    {
+      name: "auth_token",
+      partialize: (state) => ({ user: state.user }), // only persist `user`
     }
-  },
-}));
+  )
+);
 
 export default useUserStore;

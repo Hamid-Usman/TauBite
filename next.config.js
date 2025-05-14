@@ -1,6 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  
   images: {
+    domains: ['tau-api.onrender.com'],
     remotePatterns: [
       {
         protocol: 'http',

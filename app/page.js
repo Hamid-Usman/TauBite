@@ -17,7 +17,10 @@ export default function Home() {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        await register(email, password)
+        const result = await register(email, password)
+        if (result) {
+            router.push("/auth/login")
+        }
     }
     return (
         <div className="flex px-3 sm:px-14 lg:px-28 min-h-screen justify-center items-center">
@@ -46,7 +49,7 @@ export default function Home() {
                     {loading ? "Creating account..." : "Submit"}
                     </button>
                     { error && <p className="text-red">{error}</p> }
-                    <p>Already have an account? Login in <Link href={""} className="text-primary">here</Link> </p>
+                    <p>Already have an account? <Link href={"/auth/login"} className="text-primary">Login</Link> </p>
                 </div>
                 </div>
             </form>

@@ -59,6 +59,7 @@ export default function Page() {
                         <MenuItem
                             image={food.image}
                             name={food.name}
+                            description={food.description}
                             price={food.price}
                             onClick={() => openModal(food)}
                         />

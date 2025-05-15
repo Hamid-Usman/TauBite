@@ -16,6 +16,9 @@ export default function Home() {
     const handleSubmit = async (e) => {
         e.preventDefault()
         await login(email, password)
+        if (useAuthStore.getState().token && !useAuthStore.getState().error) {
+            router.push("/home")
+        }
     }
     return (
         <div className="flex px-3 sm:px-14 lg:px-28 min-h-screen justify-center items-center">
@@ -44,7 +47,7 @@ export default function Home() {
                     {loading ? "Validating..." : "Log in" }
                     </button>
                     { error ? <p>{error}</p>: "" }
-                    <p>No account? <Link href={""} className="text-primary">Sign up</Link> </p>
+                    <p>No account? <Link href={"/"} className="text-primary">Sign up</Link> </p>
                 </div>
                 </div>
             </form>

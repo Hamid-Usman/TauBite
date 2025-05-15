@@ -79,7 +79,7 @@ function Cart() {
                     <h4>Total: </h4>
                     <span> N{cartTotalPrice}</span>
                 </div>
-                <button className="py-2 w-full bg-primary active:bg-black transition duration-200 ease-in-out text-white rounded-full">Place Order</button>
+                <button className="py-2 w-full bg-primary active:bg-black transition duration-200 ease-in-out text-white rounded-full">Place Order (Payment not implemented yet)</button>
             </div>
         </section>
     )

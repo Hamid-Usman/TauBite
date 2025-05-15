@@ -1,22 +1,85 @@
+'use client'
+import useGetCart from "@/app/api/getCart";
 import food from "../../../public/img/food.jpg";
-import { CartItem } from "@/components/cart/cartItem";
+import { CartItem } from "@/components/cart/cartItem"; 
+import { useCartList } from "@/store/useCartItems";
+import useAuthStore from "@/store/useUserStore";
+import { useEffect } from "react";
 
 function Cart() {
-    const cartData = [
-        {id: 1, image: food, name:"Salmon", price: 2000}
-    ]
+
+    const {data: carts, isLoading, isError} = useGetCart();
+    const CartList = useCartList((state) => state.setCartList);
+    const { user, token, fetchUser } = useAuthStore();
+
+    useEffect(() => {
+        if (token && !user) {
+            fetchUser();
+        }
+    }, [token, user, fetchUser]);
+
+    useEffect(() => {
+        if (carts) {
+            CartList(carts);
+        }
+    }, [carts, CartList]);
+
+    
+    if (isLoading) {
+        return <div>Loading...</div>;
+    }
+
+    if (isError) {
+        return <div>Failed to load foods. Please try again later.</div>;
+    }
+
+    const cartTotalPrice = carts?.reduce((total, item) => {
+        const price = parseFloat(item.food_item.price);
+        const quantity = parseInt(item.quantity);
+        return total + (price * quantity);
+    }, 0) ?? 0;
     return (
         <section>
             <div className="flex flex-col gap-3">
                 <h3 className="font-bold">My Carts (3 Items)</h3>
-                {cartData.map((data) => (
-                    <CartItem key={data.id} image={data.image} name={data.name} price={data.price} />
+                {Array.isArray(carts) && carts.map((data) => (
+                    <CartItem key={data.id} image={data.food_item.image} name={data.food_item.name} quantity={data.quantity} price={data.food_item.price} />
                 ))}
+                <div>
+                    <label>Delivery/Pickup point</label>
+                    <select className="w-full p-2 border-2 border-primary rounded-md focus:outline-none focus:border-primary transition duration-500 ease-in-out">
+                        <optgroup label="East Campus">
+                            <option value="east-cafeteria">Cafeteria (East)</option>
+                            <option value="east-noodles-spot">Noodles Spot (East)</option>
+                            <option value="east-boys-hostel">Boys Hostel (East)</option>
+                            <option value="east-girls-hostel">Girls Hostel (East)</option>
+                            <option value="east-clinic">Clinic (East)</option>
+                            <option value="east-staff-quarters">Staff Quarters (East)</option>
+                        </optgroup>
+                        <optgroup label="West Campus">
+                            <option value="west-cafeteria">Cafeteria (West)</option>
+                            <option value="west-noodles-spot">Noodles Spot (West)</option>
+                            <option value="west-boys-hostel-1">Boys Hostel 1 (West)</option>
+                            <option value="west-boys-hostel-2">Boys Hostel 2 (West)</option>
+                            <option value="west-girls-hostel-1">Girls Hostel 1 (West)</option>
+                            <option value="west-girls-hostel-2">Girls Hostel 2 (West)</option>
+                            <option value="west-management-faculty">Faculty of Management</option>
+                            <option value="west-law-faculty">Faculty of Law</option>
+                            <option value="west-clinic">Clinic (West)</option>
+                            <option value="charlet-guest-house">Guest House (Charlet)</option>
+                            <option value="west-staff-quarters">Staff Quarters (West)</option>
+                        </optgroup>
+                        <optgroup label="Other Locations">
+                            <option value="omc-clinic">Clinic (OMC)</option>
+                            <option value="works-center">Works Center</option>
+                        </optgroup>
+                    </select>
+                </div>
                 <div className="border-t pt-2 flex justify-between border-dashed">
                     <h4>Total: </h4>
-                    <span> N2400</span>
+                    <span> N{cartTotalPrice}</span>
                 </div>
-                <button className="py-2 w-full bg-primary active:bg-black transition duration-200 ease-in-out text-white rounded-full">Place Order</button>
+                <button className="py-2 w-full bg-primary active:bg-black transition duration-200 ease-in-out text-white rounded-full">Place Order (Payment not implemented yet)</button>
             </div>
         </section>
     )

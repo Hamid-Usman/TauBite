@@ -1,67 +1,44 @@
-import { create } from 'zustand'
+import create from 'zustand';
 
 const useCartStore = create((set) => ({
-    cart: [],
-    total: 0,
+  cart: [], // Array to store the cart items
 
-    addToCart: (item) =>
-        set((state) => {
-        const existing = state.cart.find((i) => i.id === item.id)
-        if (existing) {
-            return {
-            cart: state.cart.map((i) =>
-                i.id === item.id ? { ...i, quantity: i.quantity + 1 } : i
-            ),
-            total: state.total + item.price,
-            }
-        }
-        return {
-            cart: [...state.cart, { ...item, quantity: 1 }],
-            total: state.total + item.price,
-        }
-    }),
+  addToCart: (item) => set((state) => {
+    const itemExists = state.cart.find((cartItem) => cartItem.id === item.id);
+    if (itemExists) {
+      return {
+        cart: state.cart.map((cartItem) =>
+          cartItem.id === item.id
+            ? { ...cartItem, quantity: cartItem.quantity + 1 }
+            : cartItem
+        ),
+      };
+    } else {
+      return {
+        cart: [...state.cart, { ...item, quantity: 1 }],
+      };
+    }
+  }),
 
-    removeFromCart: (id) =>
-        set((state) => {
-        const item = state.cart.find((i) => i.id === id)
-        if (!item) return state
-        return {
-            cart: state.cart.filter((i) => i.id !== id),
-            total: state.total - item.price * item.quantity,
-        }
-        }),
+  removeFromCart: (id) => set((state) => ({
+    cart: state.cart.filter((item) => item.id !== id),
+  })),
 
-    increaseQty: (id) =>
-        set((state) => {
-            const item = state.cart.find((i) => i.id === id)
-            if (!item) return state
-            return {
-                cart: state.cart.map((i) =>
-                i.id === id ? { ...i, quantity: i.quantity + 1 } : i
-                ),
-                total: state.total + item.price,
-            }
-        }),
+  updateQuantity: (id, quantity) => set((state) => ({
+    cart: state.cart.map((item) =>
+      item.id === id ? { ...item, quantity } : item
+    ),
+  })),
 
-    decreaseQty: (id) =>
-        set((state) => {
-        const item = state.cart.find((i) => i.id === id)
-        if (!item) return state
-        if (item.quantity === 1) {
-            return {
-            cart: state.cart.filter((i) => i.id !== id),
-            total: state.total - item.price,
-            }
-        }
-        return {
-            cart: state.cart.map((i) =>
-            i.id === id ? { ...i, quantity: i.quantity - 1 } : i
-            ),
-            total: state.total - item.price,
-        }
-        }),
+  clearCart: () => set({ cart: [] }),
 
-    clearCart: () => set({ cart: [], total: 0 }),
-}))
+  getTotalPrice: () => set((state) => {
+    const total = state.cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    return { totalPrice: total };
+  }),
 
-export default useCartStore
+  loading: false,
+  setLoading: (status) => set({ loading: status }),
+}));
+
+export default useCartStore;

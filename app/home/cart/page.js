@@ -43,8 +43,38 @@ function Cart() {
             <div className="flex flex-col gap-3">
                 <h3 className="font-bold">My Carts (3 Items)</h3>
                 {Array.isArray(carts) && carts.map((data) => (
-  <CartItem key={data.id} image={data.food_item.image} name={data.food_item.name} quantity={data.quantity} price={data.food_item.price} />
-))}
+                    <CartItem key={data.id} image={data.food_item.image} name={data.food_item.name} quantity={data.quantity} price={data.food_item.price} />
+                ))}
+                <div>
+                    <label>Delivery/Pickup point</label>
+                    <select className="w-full p-2 border-2 border-primary rounded-md focus:outline-none focus:border-primary transition duration-500 ease-in-out">
+                        <optgroup label="East Campus">
+                            <option value="east-cafeteria">Cafeteria (East)</option>
+                            <option value="east-noodles-spot">Noodles Spot (East)</option>
+                            <option value="east-boys-hostel">Boys Hostel (East)</option>
+                            <option value="east-girls-hostel">Girls Hostel (East)</option>
+                            <option value="east-clinic">Clinic (East)</option>
+                            <option value="east-staff-quarters">Staff Quarters (East)</option>
+                        </optgroup>
+                        <optgroup label="West Campus">
+                            <option value="west-cafeteria">Cafeteria (West)</option>
+                            <option value="west-noodles-spot">Noodles Spot (West)</option>
+                            <option value="west-boys-hostel-1">Boys Hostel 1 (West)</option>
+                            <option value="west-boys-hostel-2">Boys Hostel 2 (West)</option>
+                            <option value="west-girls-hostel-1">Girls Hostel 1 (West)</option>
+                            <option value="west-girls-hostel-2">Girls Hostel 2 (West)</option>
+                            <option value="west-management-faculty">Faculty of Management</option>
+                            <option value="west-law-faculty">Faculty of Law</option>
+                            <option value="west-clinic">Clinic (West)</option>
+                            <option value="charlet-guest-house">Guest House (Charlet)</option>
+                            <option value="west-staff-quarters">Staff Quarters (West)</option>
+                        </optgroup>
+                        <optgroup label="Other Locations">
+                            <option value="omc-clinic">Clinic (OMC)</option>
+                            <option value="works-center">Works Center</option>
+                        </optgroup>
+                    </select>
+                </div>
                 <div className="border-t pt-2 flex justify-between border-dashed">
                     <h4>Total: </h4>
                     <span> N{cartTotalPrice}</span>

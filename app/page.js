@@ -1,58 +1,38 @@
-"use client"
-import Image from "next/image";
-import eating from "../public/svg/eating.svg"
-import { SpotlightButton } from "@/framer/spotlight";
-import Link from "next/link";
-import { useState } from "react";
-import useAuthStore from "@/store/useAuthStore";
-import { useRouter } from "next/navigation";
+import React from 'react'
+import { BsLightningChargeFill } from "react-icons/bs";
+import food from "../public/svg/food.svg"
+import Image from 'next/image';
+const page = () => {
+  return (
+    <div>
+        <div className=' py-2 px-3 sm:px-14 lg:px-28 flex flex-col justify-center items-center gap-[32px] h-screen'>
+            <Image src={food} alt="food" width={50} height={50} className="absolute top-16 sm:top-32 right-10 md:right-60"/>
+            <Image src={food} alt="food" width={50} height={50} className="absolute top-12 ease-in-out transition-all duration-1000 md:top-32 left-10 md:left-60"/>
+            <Image src={food} alt="food" width={50} height={50} className="absolute bottom-16 md:bottom-32 left-10 md:left-60"/>
+            <Image src={food} alt="food" width={50} height={50} className="absolute bottom-32 ease-in-out transition-all duration-1000  md:bottom-40 right-10 md:right-60"/>
+            <div className='md:w-[659px] flex flex-col items-center gap-2 text-center'>
+                <p className='border w-fit px-3 py-[2px] rounded-full transition-all flex items-center'><BsLightningChargeFill className='text-primary animate-pulse' /> Product Under Development</p>
+                <h1 className='text-4xl md:text-5xl font-bold'>Food Delivery Service <span className="relative after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-full after:h-[5px] after:bg-primary">All In One Place
+                    </span>
+                </h1>
+                <p className=''>Lorem
+                    ipsum dolor sit amet consectetur adipisicing elit
+                    . Quisquam, voluptatum. Quisquam, voluptatum. Quisquam, voluptatum. Quisquam, voluptatum.
+                </p>
+            </div>
+            <div className='flex flex-col md:flex-row gap-2'>
+                
+                <button className='text-white bg-primary hover:bg-sky rounded-xl hover:rounded-3xl px-9 py-3 transition-all duration-300'>Login</button>
+                <button className='hover:text-white border-black border-2 hover:bg-primary-fade rounded-xl hover:rounded-3xl px-9 py-3 transition-all duration-300'>Login</button>
 
-export default function Home() {
-
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
-    const { register, loading, error } = useAuthStore()
-
-    const router = useRouter()
-
-    const handleSubmit = async (e) => {
-        e.preventDefault()
-        const result = await register(email, password)
-        if (result) {
-            router.push("/auth/login")
-        }
-    }
-    return (
-        <div className="flex px-3 sm:px-14 lg:px-28 min-h-screen justify-center items-center">
-
-            <form onSubmit={handleSubmit} className="flex flex-col p-5 rounded-lg items-center w-fit bg-white container">
-                <Image src={eating} alt="eating" width={210} height={210} className=""/>
-                <div>
-                <h1 className="text-3xl font-bold text-center">Welcome to TAU Bites</h1>
-                <p className="text-center text-gray-500">Login to get started!</p>
-                <div className="flex flex-col gap-4 mt-5">
-                    <input
-                    type="text"
-                    placeholder="Email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="border-2 border-primary rounded-md p-2 focus:outline-none focus:border-primary transition duration-500 ease-in-out"
-                    />
-                    <input
-                    type="password"
-                    placeholder="Password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    className="border-2 border-primary rounded-md p-2 focus:outline-none focus:border-primary transition duration-500 ease-in-out"
-                    />
-                    <button type="submit" className="px-6 py-2 font-semibold bg-primary hover:bg-primary-fade active:bg-primary-fade text-white  transition-all duration-500 ease-in-out shadow-[3px_3px_0px_black] active:shadow-none active:translate-x-[3px] active:translate-y-[3px]">
-                    {loading ? "Creating account..." : "Submit"}
-                    </button>
-                    { error && <p className="text-red">{error}</p> }
-                    <p>Already have an account? <Link href={"/auth/login"} className="text-primary">Login</Link> </p>
-                </div>
-                </div>
-            </form>
+            </div>
         </div>
-    );
+
+        <div>
+            
+        </div>
+    </div>
+  )
 }
+
+export default page

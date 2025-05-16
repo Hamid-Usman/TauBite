@@ -12,6 +12,9 @@ const SpringModal = ({ data }) => {
   const { count, increment, decrement, reset } = useCounterStore();
   const { isOpen, modalData, closeModal } = useModalStore();
   const [submitting, setSubmitting] = useState(false);
+  const [ success, setSuccess ] =  useState('')
+  const [ error, setError ] = useState('')
+  
 
   const { mutate: addItemToCart } = useAddToCartMutation();
 
@@ -23,6 +26,8 @@ const SpringModal = ({ data }) => {
     if (!modalData) return;
 
     setSubmitting(true);
+    setSuccess('')
+    setError('')
 
     // Payload for adding to the cart
     const payload = {
@@ -35,11 +40,12 @@ const SpringModal = ({ data }) => {
       onSuccess: () => {
         console.log(`${modalData.name} x${count} added to cart`);
         reset();
-        closeModal();
+        setSuccess("Item added to cart!")
         setSubmitting(false);
+
       },
-      onError: (error) => {
-        console.error("Error adding item to cart:", error);
+      onError: (err) => {
+        setError("Error adding item to cart:", err);
         setSubmitting(false);
       },
     });
@@ -106,6 +112,9 @@ const SpringModal = ({ data }) => {
                   {submitting ? "Adding..." : "Add to cart"}
                 </button>
               </div>
+              {success && <p className="text-green-500">{success}</p>}
+              {error && <p className="text-red-500">{error}</p>}
+                
             </div>
           </motion.div>
         </Backdrop>

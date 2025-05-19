@@ -6,18 +6,23 @@ import Link from "next/link";
 import { useState } from "react";
 import useAuthStore from "@/store/useAuthStore";
 import { useRouter } from "next/navigation";
+// import * as yup from "yup"
+// import useForm from "react-form-hook"
+// import { yupResolver } from "@yu"
+
 export default function Home() {
 
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
-    const { login, loading, error } = useAuthStore()
-    const router = useRouter() 
+    const { register, loading, error } = useAuthStore()
+
+    const router = useRouter()
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        await login(email, password)
-        if (useAuthStore.getState().token && !useAuthStore.getState().error) {
-            router.push("/home")
+        const result = await register(email, password)
+        if (result) {
+            router.push("/auth/login")
         }
     }
     return (
@@ -27,7 +32,7 @@ export default function Home() {
                 <Image src={eating} alt="eating" width={210} height={210} className=""/>
                 <div>
                 <h1 className="text-3xl font-bold text-center">Welcome to TAU Bites</h1>
-                <p className="text-center">Login to continue from where you stopped</p>
+                <p className="text-center">Register to get started!</p>
                 <div className="flex flex-col gap-4 mt-5">
                     <input
                     type="text"
@@ -44,10 +49,10 @@ export default function Home() {
                     className="border-2 border-primary rounded-md p-2 focus:outline-none focus:border-primary transition duration-500 ease-in-out"
                     />
                     <button type="submit" className="px-6 py-2 font-semibold bg-primary hover:bg-primary-fade active:bg-primary-fade text-white  transition-all duration-500 ease-in-out shadow-[3px_3px_0px_black] active:shadow-none active:translate-x-[3px] active:translate-y-[3px]">
-                    {loading ? "Validating..." : "Log in" }
+                    {loading ? "Creating account..." : "Submit"}
                     </button>
-                    { error ? <p className="text-error-500 font-semibold">{error}</p>: "" }
-                    <p>No account? <Link href={"/"} className="text-primary font-semibold">Sign up</Link> </p>
+                    { error && <p className="text-red-500 font-semibold">{error}</p> }
+                    <p>Already have an account? <Link href={"/auth/login"} className="text-primary font-semibold">Login</Link> </p>
                 </div>
                 </div>
             </form>

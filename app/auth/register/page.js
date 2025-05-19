@@ -6,13 +6,11 @@ import Link from "next/link";
 import { useState } from "react";
 import useAuthStore from "@/store/useAuthStore";
 import { useRouter } from "next/navigation";
-import * as yup from "yup"
-import useForm from "react-form-hook"
-import { yupResolver } from "@hookform/resolvers/yup";
+// import * as yup from "yup"
+// import useForm from "react-form-hook"
+// import { yupResolver } from "@yu"
 
 export default function Home() {
-
-
 
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
@@ -20,7 +18,7 @@ export default function Home() {
 
     const router = useRouter()
 
-    const onSubmit = async (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
         const result = await register(email, password)
         if (result) {
@@ -30,7 +28,7 @@ export default function Home() {
     return (
         <div className="flex px-3 sm:px-14 lg:px-28 min-h-screen justify-center items-center">
 
-            <form onSubmit={onSubmit} className="flex flex-col p-5 rounded-lg items-center w-fit bg-white container">
+            <form onSubmit={handleSubmit} className="flex flex-col p-5 rounded-lg items-center w-fit bg-white container">
                 <Image src={eating} alt="eating" width={210} height={210} className=""/>
                 <div>
                 <h1 className="text-3xl font-bold text-center">Welcome to TAU Bites</h1>
@@ -53,7 +51,8 @@ export default function Home() {
                     <button type="submit" className="px-6 py-2 font-semibold bg-primary hover:bg-primary-fade active:bg-primary-fade text-white  transition-all duration-500 ease-in-out shadow-[3px_3px_0px_black] active:shadow-none active:translate-x-[3px] active:translate-y-[3px]">
                     {loading ? "Creating account..." : "Submit"}
                     </button>
-                    <p>Already have an account? <Link href={"/auth/login"} className="text-primary">Login</Link> </p>
+                    { error && <p className="text-red-500 font-semibold">{error}</p> }
+                    <p>Already have an account? <Link href={"/auth/login"} className="text-primary font-semibold">Login</Link> </p>
                 </div>
                 </div>
             </form>

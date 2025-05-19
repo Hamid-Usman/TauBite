@@ -26,11 +26,11 @@ function Cart() {
 
     
     if (isLoading) {
-        return <div>Loading...</div>;
+        <div>Loading...</div>;
     }
 
     if (isError) {
-        return <div>Failed to load foods. Please try again later.</div>;
+        <div>Failed to load foods. Please try again later.</div>;
     }
 
     const cartTotalPrice = carts?.reduce((total, item) => {

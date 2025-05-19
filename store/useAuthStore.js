@@ -42,7 +42,7 @@ const useAuthStore = create(
           });
           return res.data;
         } catch (err) {
-          set({ error: err.response?.data?.detail || "Registration failed" });
+          set({ error: err.response?.data?.detail || "Failed to create account" });
         } finally {
           set({ loading: false });
         }

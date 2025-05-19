@@ -10,7 +10,7 @@ const getCart = async () => {
     return [];
   }
 
-  const token = useAuthStore.getState().token;;
+  const token = useAuthStore.getState().token;
   if (!token) {
     throw new Error("No auth token found");
   }

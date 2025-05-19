@@ -7,6 +7,7 @@ import { useCounterStore } from "@/store/useCounterStore";
 import { Backdrop } from "./backdrop";
 import { useState } from "react";
 import { useAddToCartMutation } from "@/app/api/addToCart";
+import useAuthStore from "@/store/useAuthStore";
 
 const SpringModal = ({ data }) => {
   const { count, increment, decrement, reset } = useCounterStore();
@@ -14,7 +15,6 @@ const SpringModal = ({ data }) => {
   const [submitting, setSubmitting] = useState(false);
   const [ success, setSuccess ] =  useState('')
   const [ error, setError ] = useState('')
-  
 
   const { mutate: addItemToCart } = useAddToCartMutation();
 
@@ -57,6 +57,7 @@ const SpringModal = ({ data }) => {
     closeModal();
   };
 
+  const token = useAuthStore.getState().token
   return (
     <AnimatePresence>
       {isOpen && (

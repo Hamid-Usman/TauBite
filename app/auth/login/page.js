@@ -46,8 +46,8 @@ export default function Home() {
                     <button type="submit" className="px-6 py-2 font-semibold bg-primary hover:bg-primary-fade active:bg-primary-fade text-white  transition-all duration-500 ease-in-out shadow-[3px_3px_0px_black] active:shadow-none active:translate-x-[3px] active:translate-y-[3px]">
                     {loading ? "Validating..." : "Log in" }
                     </button>
-                    { error ? <p>{error}</p>: "" }
-                    <p>No account? <Link href={"/"} className="text-primary">Sign up</Link> </p>
+                    { error ? <p className="text-error-500 font-semibold">{error}</p>: "" }
+                    <p>No account? <Link href={"/"} className="text-primary font-semibold">Sign up</Link> </p>
                 </div>
                 </div>
             </form>

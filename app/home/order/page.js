@@ -1,46 +1,45 @@
 "use client"
+import useGetOrders from "@/app/api/getOrders";
 import { OrderLog } from "@/framer/modals/orderLog";
+import useAuthStore from "@/store/useAuthStore";
 import { useModalStore } from "@/store/useModalStore";
+import { useOrderStore } from "@/store/useOrderStore";
 import { AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 
 export default function Carts() {
     const { isOpen, openModal, modalData, closeModal} = useModalStore();
-    const [orders, setOrders] = useState([]);
+    const { setOrders } = useOrderStore();
+    const { data: orders, isLoading, isError} = useGetOrders();
     const [loading, setLoading] = useState(true);
+    const { user, fetchUser } = useAuthStore();
+    useEffect(() => {
+  
+      fetchUser()
+    }, [fetchUser]);
   
     useEffect(() => {
-      async function fetchOrders() {
-        try {
-          const res = await fetch("/api/order"); // replace with your actual API endpoint
-          const data = await res.json();
-          setOrders(data);
-        } catch (err) {
-          console.error("Failed to fetch orders:", err);
-        } finally {
-          setLoading(false);
-        }
+      if (orders){
+        setOrders(orders)
       }
-  
-      fetchOrders();
-    }, []);
-  
-    if (loading) return <p>Loading orders...</p>;
+    }, [orders, setOrders])
+    if (isLoading) return <p>Loading orders...</p>;
   
     return (
         <section>
             <div className="flex flex-col gap-3">
                 <h3 className="font-bold">My Orders</h3>
-                
-        {orders.map((order) => (
-          <div
-            key={order.order_id}
-            onClick={() => openModal({ food_items: order.food_items, quantity: order.quantity, status: order.status, total_sum: order.total_sum})}
-            className="sm:w-[480px] flex justify-between bg-gray-300 rounded-lg p-2 cursor-pointer"
-          >
-            <p>{order.order_id}</p>
-          </div>
-        ))}
+                {orders && orders.length > 0 ? (
+                  orders.map((order) => (
+                  <div
+                    key={order.order_id}
+                    onClick={() => openModal({ food_items: order.food_items, quantity: order.quantity, status: order.status, total_sum: order.total_sum})}
+                    className="sm:w-[480px] flex justify-between bg-gray-300 rounded-lg p-2 cursor-pointer"
+                  >
+                    <p>{order.order_id}</p>
+                  </div>
+                ))
+                ) : <p>No orders made</p>}
             </div>
             <AnimatePresence>
             {isOpen && modalData && (

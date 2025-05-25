@@ -16,9 +16,10 @@ export default function Page() {
     const setFood = useFoodsStore((state) => state.setFood);
     const { user, fetchUser} = useAuthStore();
     const token = useAuthStore.getState().token
-    const { name, setName, tags, setTags, setPrice } = useFoodFilter();
+    const { name, setName, tags, setTags, price, setPrice } = useFoodFilter();
     const [ clicked, setClicked ] = useState()
     const [clickedTag, setClickedTag] = useState("");
+
 
     const handleTagToggle = (tagValue, setTagState, setClickedState) => {
         setClickedState((prev) => {
@@ -27,11 +28,14 @@ export default function Page() {
             return newClicked ? tagValue : ""; // clicked state reflects active tag
         });
     };
-    const handleSalad = () => {
-        handleTagToggle("1", setTags, setClickedTag);
+    const brainFuel = () => {
+        handleTagToggle("8", setTags, setClickedTag);
     };
-    const handleSoda = () => {
-        handleTagToggle("4", setTags, setClickedTag);
+    const energyBoost = () => {
+        handleTagToggle("9", setTags, setClickedTag);
+    };
+    const handlePastry = () => {
+        handleTagToggle("5", setTags, setClickedTag);
     };
 
     useEffect(() => {
@@ -64,8 +68,8 @@ export default function Page() {
                     Get the <span className="font-bold">Best Bites</span> Around TAU
                 </p>
             </div>
-            <div className="flex flex-col sm:flex-row gap-2 mt-5">
-                <div className="p-2 flex items-center bg-gray-300 w-fit rounded-lg">
+            <div className="flex flex-col sm:flex-row gap-4 mt-5">
+                {/* <div className="p-2 flex items-center bg-gray-300 w-fit rounded-lg">
                     <TbAdjustmentsSearch className="rotate-90 ml-auto text-black" />
                     
                     <input
@@ -74,24 +78,44 @@ export default function Page() {
                         onChange={(e) => setName(e.target.value)}
                         className="p-2 border rounded"
                     />
-                </div>
-                <div className="flex items-center gap-2">
+                </div> */}
+                <div className="flex flex-col gap-1">
                     
-                    <input type="checkbox" checked={clickedTag === "1"} onChange={() => {}} onClick={handleSalad} className={ `text-sm p-2 w-fit rounded-lg transition-all duration-500 ${clicked === true ? "bg-primary text-white" :"bg-gray-300"} `} />
-                    <label>Salads</label>
+                    <p className="font-semibold">Filter by: </p>
+                    <div className="sm:flex gap-3">
+                        <div className="flex items-center gap-2">
+                            <input type="radio"
+                            checked={clickedTag === "8"}
+                            onChange={() => {}}
+                            onClick={brainFuel}
+                            className={ `text-sm p-2 w-fit rounded-lg transition-all duration-500 ${clicked === true ? "bg-primary text-white" :"bg-gray-300"} `}
+                        />
+                            <label>Salads</label>
+                        </div>
+                        <div className="flex items-center gap-2">
+                            <input type="radio"
+                                checked={clickedTag === "9"}
+                                onChange={() => {}}
+                                onClick={energyBoost}
+                                className={ `text-sm p-2 w-fit rounded-lg transition-all duration-500`}
+                            />
+                            <label>Soda</label>
+                        </div>
+                        <div className="flex items-center gap-2">
+                            <input type="radio" checked={clickedTag === "5"} onChange={() => {}} onClick={handlePastry} className={ `text-sm p-2 w-fit rounded-lg transition-all duration-500`} />
+                            <label>Pastry</label>
+                        </div>
+                    </div>
                 </div>
-                <div className="flex items-center gap-2">
-                    
-                    <input type="checkbox" checked={clickedTag === "4"} onChange={() => {}} onClick={handleSoda} className={ `text-sm p-2 w-fit rounded-lg transition-all duration-500`} />
-                    <label>Soda</label>
+                <div className="flex flex-col">
+                    <label className="font-semibold">Max Price:</label>
+                    <select className="bg-gray-300 w-[180px] py-3 px-2 rounded-lg">
+                        <option onClick={() => setPrice("")}>-</option>
+                        <option onClick={() => setPrice("1000")}>1000</option>
+                        <option onClick={() => setPrice("1500")}>1500</option>
+                        <option onClick={() => setPrice("2000")}>2000</option>
+                    </select>
                 </div>
-                <select className="bg-gray-300 w-[180px] py-3 px-2 rounded-lg">
-                    <option onClick={() => setPrice("10000000")}>No range</option>
-                    <option onClick={() => setPrice("1001")}>1000 or less</option>
-                    <option onClick={() => setPrice("1501")}>1500 or less</option>
-                    <option onClick={() => setPrice("2001")}>2000 or less</option>
-                    <option onClick={() => setPrice("2000")}>2000+</option>
-                </select>
             </div>
             <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-5">
                 {foods?.map((food) => (
@@ -99,9 +123,12 @@ export default function Page() {
                         <MenuItem
                             image={food.image}
                             name={food.name}
+                            average_rating={food.average_rating}
                             description={food.description}
+                            tags={food.tags}
                             price={food.price}
                             onClick={() => openModal(food)}
+                            // starClicked={}
                         />
                     </div>
                 ))}

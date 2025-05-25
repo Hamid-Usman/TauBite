@@ -2,5 +2,7 @@ import { create } from "zustand";
 
 export const useOrderStore = create((set) =>({
     orders: [],
-    setOrder: (data) => set({orders: data})
+    error: null,
+    setOrders: (orders) => set({ orders, error: null }),
+    setError: (error) => set({ error }),
 }))

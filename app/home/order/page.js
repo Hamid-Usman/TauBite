@@ -43,12 +43,12 @@ export default function Carts() {
                 {orders && orders.length > 0 ? (
                     orders.map((order) => (
                         <div
-                            key={order.order_id}
+                            key={order.id}
                             onClick={() => handleOrderClick(order)}
                             className="sm:w-[480px] flex justify-between bg-gray-300 rounded-lg p-2 cursor-pointer"
                         >
-                            <p>{order.order_id}</p>
-                            <p>Total: ₦{order.total_sum.toFixed(2)}</p>
+                            <p>{order.id}</p>
+                            <p>Total: ₦{order.total_sum}</p>
                             <p>Status: {order.status}</p>
                         </div>
                     ))

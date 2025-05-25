@@ -4,7 +4,7 @@ const { default: axios } = require("axios");
 
 const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
-export const createOrder = async (cartItemIds) => {
+export const createOrder = async (cartItemIds, deliveryLocation) => {
     const token = useAuthStore.getState().token
     if (!token) {
         throw new Error("Undefined token")
@@ -12,7 +12,8 @@ export const createOrder = async (cartItemIds) => {
     
     try {
         const res = await axios.post(`${apiUrl}/order/`, {
-            cart_item_ids: cartItemIds
+            cart_item_ids: cartItemIds,
+            delivery_location: deliveryLocation
         }, {
             headers: {
                 Authorization: `Token ${token}`,

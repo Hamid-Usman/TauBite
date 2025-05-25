@@ -7,7 +7,7 @@ const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 const getOrders = async () => {
         const token = useAuthStore.getState().token;
         try {
-            const response = await axios.get(`${apiUrl}/order`, {
+            const response = await axios.get(`${apiUrl}/order/user-orders`, {
                 headers: {
                     Authorization: `Token ${token}`,
                 },

@@ -1,20 +1,19 @@
 "use client"
-import useGetOrders from "@/app/api/getOrders";
-import { OrderTable } from "@/components/orderTable";
+import { useAllOrders } from "@/app/api/admin/allOrders";
 import { OrderLog } from "@/framer/modals/orderLog";
 import useAuthStore from "@/store/useAuthStore";
 import { useModalStore } from "@/store/useModalStore";
-import { useOrderStore } from "@/store/useOrderStore";
+import { useAdminOrderStore } from "@/store/admin/useAdminOrder";
 import { AnimatePresence } from "framer-motion";
 import { useEffect } from "react";
+import { useOrderStore } from "@/store/useOrderStore";
+import { OrderTable } from "@/components/orderTable";
 
 export default function Carts() {
     const { isOpen, openModal, modalData, closeModal } = useModalStore();
-    const orders = useOrderStore((state) => state.orders);  // Get orders from store
-    const setOrders = useOrderStore((state) => state.setOrders);  // Get setter function
-    const { data: fetchedOrders, isLoading, error, isError } = useGetOrders();
+    const { orders, setOrders } = useOrderStore();  // Get setter function
+    const { data: fetchedOrders, isLoading, error, isError } = useAllOrders();
     const { user, fetchUser } = useAuthStore();
-
     useEffect(() => {
         fetchUser();
     }, [fetchUser]);
@@ -30,7 +29,7 @@ export default function Carts() {
             food_items: order.food_items,
             status: order.status,
             total_sum: order.total_sum,
-            order_id: order.order_id
+            id: order.id
         });
     };
 
@@ -41,19 +40,27 @@ export default function Carts() {
         <section>
             <div className="flex flex-col gap-3">
                 <h3 className="font-bold">My Orders</h3>
-                {orders && orders.length > 0 ? (
-                    orders.map((order) => (
-                        <OrderTable
-                            key={order.order_id}
-                            order_id={order.order_id}
-                            total_sum={order.total_sum}
-                            status={order.status}
-                            onClick={() => handleOrderClick(order)}
-                        />
-                    ))
-                ) : (
-                    <p>No orders made yet</p>
-                )}
+                    <table className="w-full">
+                        <thead>
+                            <tr className="bg-gray-200">
+                                <th className="p-2 text-left w-1/4">Order ID</th>
+                                <th className="p-2 text-left w-1/4">Total</th>
+                                <th className="p-2 text-left w-1/4">Status</th>
+                            </tr>
+                        
+                        </thead>
+                        <tbody className="">
+                            {orders.map((order) => (
+                                <OrderTable
+                                    key={order.id}
+                                    id={order.id}
+                                    total_sum={order.total_sum}
+                                    status={order.status}
+                                    onClick={() => handleOrderClick(order)}
+                                />
+                            ))}
+                        </tbody>
+                    </table>
             </div>
             
             <AnimatePresence>
@@ -63,7 +70,7 @@ export default function Carts() {
                         food_items={modalData.food_items}
                         status={modalData.status}
                         total_sum={modalData.total_sum}
-                        order_id={modalData.order_id}
+                        id={modalData.id}
                         
                     />
                 )}

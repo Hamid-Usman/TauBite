@@ -39,14 +39,14 @@ export const OrderLog = ({ food_items, total_sum,
               <p>
                 {item.name} x {item.quantity} (${item.price_at_order})
               </p>
-              {!user.is_staff && (
+              {user.is_staff && (
                 
                 <button
                   className={`mt-1 px-3 py-1 text-sm bg-blue-500 text-white rounded ${item.status !== "delivered" ? "opacity-50 cursor-not-allowed" : ""}`}
                   onClick={() =>
                     openForm({
                       item,
-                      order_id,
+                      // order_id,
                     })
                   }
                 >

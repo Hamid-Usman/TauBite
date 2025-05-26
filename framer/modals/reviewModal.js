@@ -2,19 +2,38 @@ import React, { useState } from 'react'
 import { motion } from 'framer-motion';
 import { Backdrop } from '../backdrop';
 import { useReviewModalStore } from '@/useReviewModalStore';
+import { useRateItemMutation } from '@/app/api/reviewItem';
 export const ReviewModal = () => {
   const { formData, closeForm } = useReviewModalStore();
-    const [rating, setRating ] = useState(0)
-    const emojis = ["😡", "😕", "😐", "😊", "😍"];
+  const { mutate: RateItem } = useRateItemMutation()
+  const [rating, setRating ] = useState(0)
+  const emojis = ["😡", "😕", "😐", "😊", "😍"];
 
   if (!formData || !formData.item) return null;
 
   const { item, order_id } = formData; //formData is for ReviewModalData
+  const handleEmojiClick = (index) => {
+      setRating(index + 1);
+  }
 
-
-    const handleEmojiClick = (index) => {
-        setRating(index + 1);
+  const addReview = () => {
+    RateItem(
+      {
+        order_item: item.id,
+        rating: rating,
+        comment: "Good job"
+      },{
+      onSuccess: () => {
+        console.log("it works!");
+        closeForm()
+      },
+      onError: (err) => {
+        console.log("It doesnt work: ", err.response?.data);
+      }
     }
+      
+    );
+  };
   return (
     <Backdrop onClick={closeForm}>
         
@@ -23,7 +42,7 @@ export const ReviewModal = () => {
         className="review-modal bg-white p-4 md:px-20 rounded shadow-lg flex flex-col"
    
         >
-        <h1 className="text-lg mb-4 font-bold">Rate Order Item: {item.name}</h1>
+        <h1 className="text-lg mb-4 font-bold">Rate Order Item: {item.id}</h1>
         
         <div className="flex gap-2 md:gap-4 mt-4 justify-center">
             {emojis.map((emoji, index) => (
@@ -53,7 +72,7 @@ export const ReviewModal = () => {
         </div>
         
         <button
-          
+          onClick={addReview}
           className="mt-4 bg-primary text-white p-2 rounded w-full hover:bg-primary_dark transition-colors duration-300"
         >
           Submit Review

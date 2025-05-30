@@ -17,7 +17,7 @@ const useGetFoods = () => {
     return useQuery({
         queryKey: ["foods", name, tags, price],
         queryFn: () => getFoods({ name, tags, price }),
-        staleTime: 1000 * 60 * 5, // 5 minutes
+        // staleTime: 1000 * 60 * 5, // 5 minutes
     });
 }
 

@@ -28,7 +28,6 @@ const useGetCart = () => {
   return useQuery({
     queryKey: ["cart"],
     queryFn: getCart,
-    enabled: typeof window !== "undefined", // ensures it only runs on client
     staleTime: 1000 * 60 * 5,
   });
 };

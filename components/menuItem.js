@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { CiStar } from "react-icons/ci";
 
-export const MenuItem = ({id, image, name, description, price, onClick }) => {
+export const MenuItem = ({id, image, name, average_rating, description, price, onClick, tags}) => {
 
     return (
         <div onClick={onClick} key={id} className="w-[330px] rounded-lg bg-white active:bg-primary-fade transition duration-500 ease-in-out flex gap-4 p-3">
@@ -10,10 +10,14 @@ export const MenuItem = ({id, image, name, description, price, onClick }) => {
             ) : null}
             <div>
                 <h5 className="font-semibold text-wrap w-fit">{name}</h5>
-                <div className="flex gap-2">
-                    {/* <CiStar className="text-yellow-500" /> */}
+                <div className=" gap-2">
+                    <p className="flex items-center gap-1"><CiStar className="text-yellow-500" /> {average_rating}</p>
                     <p className="text-[12px] text-gray-500 hidden">{description}</p>
-                    <p className="text-[12px] flex justify-between items-center p-[3px] bg-gray-200 rounded-full font-bold">N{price}</p>
+                    {tags.map((tag) => (
+                        <p className="hidden" key={tag.id}>{tag},</p>
+                        ))
+                    }
+                    <p className="text-[12px] flex justify-between items-center p-[3px] bg-gray-200 rounded-full w-fit px-2 py-1 font-bold">N{price}</p>
                 </div>
             </div>
         

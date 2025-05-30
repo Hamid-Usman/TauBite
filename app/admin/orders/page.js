@@ -1,20 +1,19 @@
 "use client"
-import useGetOrders from "@/app/api/getOrders";
-import { OrderTable } from "@/components/orderTable";
+import { useAllOrders } from "@/app/api/admin/allOrders";
 import { OrderLog } from "@/framer/modals/orderLog";
 import useAuthStore from "@/store/useAuthStore";
 import { useModalStore } from "@/store/useModalStore";
-import { useOrderStore } from "@/store/useOrderStore";
+import { useAdminOrderStore } from "@/store/admin/useAdminOrder";
 import { AnimatePresence } from "framer-motion";
 import { useEffect } from "react";
+import { useOrderStore } from "@/store/useOrderStore";
+import { OrderTable } from "@/components/orderTable";
 
 export default function Carts() {
     const { isOpen, openModal, modalData, closeModal } = useModalStore();
-    const orders = useOrderStore((state) => state.orders);  // Get orders from store
-    const setOrders = useOrderStore((state) => state.setOrders);  // Get setter function
-    const { data: fetchedOrders, isLoading, error, isError } = useGetOrders();
+    const { orders, setOrders } = useOrderStore();  // Get setter function
+    const { data: fetchedOrders, isLoading, error, isError } = useAllOrders();
     const { user, fetchUser } = useAuthStore();
-
     useEffect(() => {
         fetchUser();
     }, [fetchUser]);
@@ -51,21 +50,17 @@ export default function Carts() {
                         
                         </thead>
                         <tbody className="">
-                            {orders && orders.length > 0 ? (
-                                orders.map((order) => (
-                                    <OrderTable
-                                        key={order.id}
-                                        id={order.id}
-                                        total_sum={order.total_sum}
-                                        status={order.status}
-                                        onClick={() => handleOrderClick(order)}
-                                    />
-                                ))
-                            ) : (
-                                <p>No orders made yet</p>
-                            )}
+                            {orders.map((order) => (
+                                <OrderTable
+                                    key={order.id}
+                                    id={order.id}
+                                    total_sum={order.total_sum}
+                                    status={order.status}
+                                    onClick={() => handleOrderClick(order)}
+                                />
+                            ))}
                         </tbody>
-                </table>
+                    </table>
             </div>
             
             <AnimatePresence>

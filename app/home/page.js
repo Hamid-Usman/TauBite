@@ -28,14 +28,29 @@ export default function Page() {
             return newClicked ? tagValue : ""; // clicked state reflects active tag
         });
     };
-    const brainFuel = () => {
-        handleTagToggle("8", setTags, setClickedTag);
+    const vegan = () => {
+        handleTagToggle("2", setTags, setClickedTag);
     };
     const energyBoost = () => {
-        handleTagToggle("9", setTags, setClickedTag);
+        handleTagToggle("8", setTags, setClickedTag);
     };
-    const handlePastry = () => {
+    const pastry = () => {
+        handleTagToggle("13", setTags, setClickedTag);
+    };
+    const halal = () => {
         handleTagToggle("5", setTags, setClickedTag);
+    };
+    const nutFree = () => {
+        handleTagToggle("7", setTags, setClickedTag);
+    };
+    const muscleRecovery = () => {
+        handleTagToggle("10", setTags, setClickedTag);
+    };
+    const budgetFriendly = () => {
+        handleTagToggle("14", setTags, setClickedTag);
+    };
+    const handleSoda = () => {
+        handleTagToggle("15", setTags, setClickedTag);
     };
 
     useEffect(() => {
@@ -82,27 +97,72 @@ export default function Page() {
                 <div className="flex flex-col gap-1">
                     
                     <p className="font-semibold">Filter by: </p>
-                    <div className="sm:flex gap-3">
+                    <div className="sm:grid grid-cols-3 gap-3">
                         <div className="flex items-center gap-2">
                             <input type="radio"
-                            checked={clickedTag === "8"}
+                            checked={clickedTag === "5"}
                             onChange={() => {}}
-                            onClick={brainFuel}
+                            onClick={halal}
                             className={ `text-sm p-2 w-fit rounded-lg transition-all duration-500 ${clicked === true ? "bg-primary text-white" :"bg-gray-300"} `}
                         />
-                            <label>Salads</label>
+                            <label>Halal</label>
                         </div>
                         <div className="flex items-center gap-2">
                             <input type="radio"
-                                checked={clickedTag === "9"}
+                            checked={clickedTag === "2"}
+                            onChange={() => {}}
+                            onClick={vegan}
+                            className={ `text-sm p-2 w-fit rounded-lg transition-all duration-500 ${clicked === true ? "bg-primary text-white" :"bg-gray-300"} `}
+                        />
+                            <label>Vegan</label>
+                        </div>
+                        <div className="flex items-center gap-2">
+                            <input type="radio"
+                            checked={clickedTag === "7"}
+                            onChange={() => {}}
+                            onClick={nutFree}
+                            className={ `text-sm p-2 w-fit rounded-lg transition-all duration-500 ${clicked === true ? "bg-primary text-white" :"bg-gray-300"} `}
+                        />
+                            <label>Nut-Free</label>
+                        </div>
+                        <div className="flex items-center gap-2">
+                            <input type="radio"
+                            checked={clickedTag === "10"}
+                            onChange={() => {}}
+                            onClick={muscleRecovery}
+                            className={ `text-sm p-2 w-fit rounded-lg transition-all duration-500 ${clicked === true ? "bg-primary text-white" :"bg-gray-300"} `}
+                        />
+                            <label>Muscle Recovery</label>
+                        </div>
+                        <div className="flex items-center gap-2">
+                            <input type="radio"
+                            checked={clickedTag === "14"}
+                            onChange={() => {}}
+                            onClick={budgetFriendly}
+                            className={ `text-sm p-2 w-fit rounded-lg transition-all duration-500 ${clicked === true ? "bg-primary text-white" :"bg-gray-300"} `}
+                        />
+                            <label>Nut-Free</label>
+                        </div>
+                        <div className="flex items-center gap-2">
+                            <input type="radio"
+                                checked={clickedTag === "15"}
                                 onChange={() => {}}
-                                onClick={energyBoost}
+                                onClick={handleSoda}
                                 className={ `text-sm p-2 w-fit rounded-lg transition-all duration-500`}
                             />
                             <label>Soda</label>
                         </div>
                         <div className="flex items-center gap-2">
-                            <input type="radio" checked={clickedTag === "5"} onChange={() => {}} onClick={handlePastry} className={ `text-sm p-2 w-fit rounded-lg transition-all duration-500`} />
+                            <input type="radio"
+                                checked={clickedTag === "8"}
+                                onChange={() => {}}
+                                onClick={energyBoost}
+                                className={ `text-sm p-2 w-fit rounded-lg transition-all duration-500`}
+                            />
+                            <label>Energy Boost</label>
+                        </div>
+                        <div className="flex items-center gap-2">
+                            <input type="radio" checked={clickedTag === "13"} onChange={() => {}} onClick={pastry} className={ `text-sm p-2 w-fit rounded-lg transition-all duration-500`} />
                             <label>Pastry</label>
                         </div>
                     </div>

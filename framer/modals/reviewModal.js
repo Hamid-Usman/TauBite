@@ -42,7 +42,7 @@ export const ReviewModal = () => {
         className="review-modal bg-white p-4 md:px-20 rounded shadow-lg flex flex-col"
    
         >
-        <h1 className="text-lg mb-4 font-bold">Rate Order Item: {item.id}</h1>
+        <h1 className="text-lg mb-4 font-bold">Rate Item: {item.name}</h1>
         
         <div className="flex gap-2 md:gap-4 mt-4 justify-center">
             {emojis.map((emoji, index) => (

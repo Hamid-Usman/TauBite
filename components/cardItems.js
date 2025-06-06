@@ -11,7 +11,7 @@ export const CardItems = ({icon, heading, description}) => {
     initial={fadeUp.initial}
     whileInView={fadeUp.whileInView}
     transition={fadeUp.transition}
-    className='text-start w-full sm:w-[310px] bg-primary text-white flex flex-col gap-4 h-[180px] py-7 px-5'>
+    className='rounded-xl text-start w-full sm:w-[310px] bg-secondary text-white flex flex-col gap-4 h-[180px] py-7 px-5'>
         <Image src={icon} alt='' width={30} height={30}/> 
         <p className=''>{heading}</p>
         <p>{description}</p>

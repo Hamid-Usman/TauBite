@@ -62,6 +62,9 @@ export default function Page() {
             setFood(foods);
         }
     }, [foods, setFood]);
+    if(user.is_staff) {
+        Router.push("/admin/order")
+    }
 
     if (isLoading) {
         return <div>Loading...</div>;

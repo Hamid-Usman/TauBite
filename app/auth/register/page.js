@@ -7,6 +7,8 @@ import { useEffect, useState } from "react";
 import useAuthStore from "@/store/useAuthStore";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
+import { useIndexStore } from "@/store/useIndexStore";
+import { UseSlide } from "@/hooks/indexHook";
 // import * as yup from "yup"
 // import useForm from "react-form-hook"
 // import { yupResolver } from "@yu"
@@ -20,7 +22,7 @@ const slides = [
   {
     id: 2,
     icon: eating,
-    content: "First slide content",
+    content: "Second slide content",
     bgColor: "bg-blue-500",
   }
 ];
@@ -31,24 +33,11 @@ export default function Home() {
     const { register, loading, error } = useAuthStore()
 
     const router = useRouter()
-    const [currentIndex, setCurrentIndex] = useState(0)
-
-  // Auto-advance every 5 seconds
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
-    }, 5000); // 5 seconds
-
-    return () => clearInterval(interval); // Cleanup on unmount
-  }, []);
-
-    const nextSlide = () => {
-        setCurrentIndex((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
-    }
-
-    const prevSlide = () => {
-        setCurrentIndex ((prev) => (prev === 0 ? slides.length -1 : prev - 1))
-    }
+    const { currentIndex, nextSlide, setCurrentIndex } = useIndexStore()
+    
+    UseSlide(slides.length, 4000); // Auto-advance every 5 seconds
+  
+    // Auto-advance every 5 seconds
     const handleSubmit = async (e) => {
         e.preventDefault()
         const result = await register(email, password)
@@ -69,14 +58,14 @@ export default function Home() {
                         <h1 className="text-4xl font-bold mb-4">
                         <Image alt="Icon" width={200} src={slides[currentIndex].icon} />
                         </h1>
-                        <p className="text-x text-cream">{slides[currentIndex].content}</p>
+                        <p className="text-cream">{slides[currentIndex].content}</p>
                     </div>
                 </motion.div>
             </div>
-            <form onSubmit={handleSubmit} className=" md:w-[70%] lg:w-[30%] flex flex-col py-10 gap-10 justify-center p-5 rounded-lg text-centerjustify-center items-center container">
+            <form onSubmit={handleSubmit} className=" md:w-[70%] lg:w-[30%] flex flex-col py-10 gap-10 justify-center p-5 rounded-lg text-center items-center container">
                 <h1 className="font-bold text-xl text-primary">FoodieHub</h1>
                 <div>
-                  <h1 className="text-2xl font-bold text-center">Welcome to TAU Bites</h1>
+                  <h1 className="text-2xl font-bold text-center">Welcome To FoodieHub</h1>
                   <p className="text-center">Register to get started!</p>
                 </div>
                 <div className="w-[280px] mx-auto flex flex-col gap-4 mt-5">

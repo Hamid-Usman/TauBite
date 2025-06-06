@@ -9,6 +9,7 @@ import useGetFoods from "../api/getFoods";
 import useUserStore from "@/store/useUserStore";
 import useAuthStore from "@/store/useAuthStore";
 import { useFoodFilter } from "@/store/filters/useFoodFilter";
+import { useRouter } from "next/navigation";
 
 export default function Page() {
     const { openModal } = useModalStore();
@@ -19,6 +20,7 @@ export default function Page() {
     const { name, setName, tags, setTags, price, setPrice } = useFoodFilter();
     const [ clicked, setClicked ] = useState()
     const [clickedTag, setClickedTag] = useState("");
+    const router = useRouter();
 
 
     const handleTagToggle = (tagValue, setTagState, setClickedState) => {
@@ -62,9 +64,10 @@ export default function Page() {
             setFood(foods);
         }
     }, [foods, setFood]);
-    if(user.is_staff) {
-        Router.push("/admin/order")
-    }
+
+    // if(user.is_staff) {
+    //     router.push("/admin/order")
+    // }
 
     if (isLoading) {
         return <div>Loading...</div>;

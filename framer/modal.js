@@ -53,6 +53,8 @@ const SpringModal = ({ data }) => {
 
   const handleCloseModal = (e) => {
     reset();
+    setSuccess('')
+    setError('')
     e.stopPropagation();
     closeModal();
   };
@@ -67,61 +69,63 @@ const SpringModal = ({ data }) => {
             animate={{ y: -50, rotate: "0deg" }}
             exit={{ y: 50, rotate: "0deg" }}
             onClick={(e) => e.stopPropagation()}
-            className="bg-white text-dark p-4 h-fit rounded-lg w-[320px] max-w-lg shadow-xl cursor-default relative overflow-hidden"
+            className="bg-white text-dark p-4 h-fit rounded-lg w-[320px] md:w-[720px] shadow-xl cursor-default relative overflow-hidden"
           >
-            <div className="relative z-10">
-              <div className="bg-white w-full h-full mb-2 rounded-full text-3xl grid place-items-center mx-auto">
+            <div className="md:flex relative justify-between z-10 w-full">
+              <div className="bg-white md:w-[1000px] h-full mb-2 rounded-full text-3xl grid place-items-center mx-auto">
                 <Image
                   src={modalData?.image}
                   alt={modalData?.name}
-                  className="w-full h-[250px]"
+                  className="w-[80%] h-[250px]"
                   width={50}
                   height={50}
                 />
               </div>
-              <h3 className="text-2xl font-bold mb-2">{modalData?.name}</h3>
-              <p className="mb-6">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam,
-                voluptatibus. Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Quisquam, voluptatibus.
-              </p>
-              <div className="flex flex-wrap gap-2">
-                
-                {modalData?.tags.map((tag) => (
-                    <p className="p-2 rounded-md bg-gray-300" key={tag.id}>{tag}</p>
-                ))}
-              </div>
+              <div>
+                <h3 className="text-2xl font-bold mb-2">{modalData?.name}</h3>
+                <p className="mb-6">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam,
+                  voluptatibus. Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Quisquam, voluptatibus.
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  
+                  {modalData?.tags.map((tag) => (
+                      <p className="p-2 rounded-md bg-gray-300" key={tag.id}>{tag}</p>
+                  ))}
+                </div>
 
-              <div className="my-2 flex items-center gap-5">
-                <h3 className="font-bold text-lg">N{totalPrice}</h3>
-                <div className="bg-gray-200 w-fit rounded-full flex gap-2 items-center">
+                <div className="my-2 flex items-center gap-5">
+                  <h3 className="font-bold text-lg">N{totalPrice}</h3>
+                  <div className="bg-gray-200 w-fit rounded-full flex gap-2 items-center">
+                    <button
+                      onClick={decrement}
+                      type="button"
+                      className="flex items-center justify-center cursor-pointer rounded-full w-8 h-8 bg-dark text-white"
+                    >
+                      -
+                    </button>
+                    {count}
+                    <button
+                      onClick={increment}
+                      type="button"
+                      className="cursor-pointer rounded-full w-8 h-8 bg-dark text-white"
+                    >
+                      +
+                    </button>
+                  </div>
                   <button
-                    onClick={decrement}
-                    type="button"
-                    className="flex items-center justify-center cursor-pointer rounded-full w-8 h-8 bg-dark text-white"
+                    onClick={handleAddToCart}
+                    disabled={submitting}
+                    className="bg-primary hover:bg-primary-fade transition duration-300 text-white hover:opacity-90 w-fit px-4 py-2 rounded-full"
                   >
-                    -
-                  </button>
-                  {count}
-                  <button
-                    onClick={increment}
-                    type="button"
-                    className="cursor-pointer rounded-full w-8 h-8 bg-dark text-white"
-                  >
-                    +
+                    {submitting ? "Adding..." : "Add to cart"}
                   </button>
                 </div>
-                <button
-                  onClick={handleAddToCart}
-                  disabled={submitting}
-                  className="bg-primary hover:bg-primary-fade transition duration-300 text-white hover:opacity-90 w-full py-2 rounded-full"
-                >
-                  {submitting ? "Adding..." : "Add to cart"}
-                </button>
+                {success && <p className="text-green-500">{success}</p>}
+                {error && <p className="text-red-500">{error}</p>}
+                  
               </div>
-              {success && <p className="text-green-500">{success}</p>}
-              {error && <p className="text-red-500">{error}</p>}
-                
             </div>
           </motion.div>
         </Backdrop>

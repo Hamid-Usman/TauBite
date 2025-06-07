@@ -13,7 +13,7 @@ import { useIndexStore } from "@/store/useIndexStore";
 import { yupResolver } from '@hookform/resolvers/yup';
 import { AuthSchema } from "@/schemas/authSchema";
 import { useForm } from 'react-hook-form';
-import { useAuthHook } from "@/schemas/resolvers/authResolver";
+import { useAuthForm } from "@/schemas/resolvers/authResolver";
 
 
 const slides = [
@@ -35,18 +35,16 @@ export default function Home() {
 
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
-    const { login, loading, error } = useAuthStore()
-    const { currentIndex, nextSlide, setCurrentIndex } = useIndexStore()
+    const { login, loading, error, fieldErrors } = useAuthStore()
+    const { currentIndex } = useIndexStore()
     const router = useRouter() 
-    const { register, handleSubmit, formState: { errors } } = useAuthHook()
+    const { register, handleSubmit, formState: { errors, isValid } } = useAuthForm()
 
 
-    UseSlide(slides.length, 4000); // Auto-advance every 5 seconds
+    UseSlide(slides.length, 4000); // Auto-advance every 5 secoForm
 
-
-    const onSubmit = async (e) => {
-        e.preventDefault()
-        await login(email, password)
+    const onSubmit = async (data) => {
+        await login(data.email, data.password)
         if (useAuthStore.getState().token && !useAuthStore.getState().error) {
             router.push("/home")
         }
@@ -99,10 +97,17 @@ export default function Home() {
                             />
                             <p className="text-start text-red-500">{errors.password?.message}</p>
                         </div>
+                        {fieldErrors?.non_field_errors && (
+                            <p className=" text-red-500">
+                            {Array.isArray(fieldErrors.non_field_errors) 
+                                ? fieldErrors.non_field_errors.join(" ") 
+                                : fieldErrors.non_field_errors}
+                            </p>
+                        )}
                         <button type="submit" className="px-12 w-fit py-2 font-semibold active:rounded-xl hover:rounded-xl mx-auto bg-primary hover:bg-primary-fade active:bg-primary-fade text-white transition-all duration-500 ease-in-out shadow-[3px_3px_0px_black] active:shadow-none active:translate-x-[3px] active:translate-y-[3px]">
                         {loading ? "Logging in..." : "Submit"}
                         </button>
-                        { error && <p className="text-red-500 font-semibold">{error}</p> }
+                        {/* { error && <p className="text-red-500 font-semibold">{error}</p> } */}
                     </div>
                 </div>
                     <p>Don&apos;t have an account? Register <Link href={"/auth/register"} className="text-primary font-semibold">Here</Link> </p>

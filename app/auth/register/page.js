@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { useIndexStore } from "@/store/useIndexStore";
 import { UseSlide } from "@/hooks/indexHook";
+import { useAuthForm } from "@/schemas/resolvers/authResolver";
 // import * as yup from "yup"
 // import useForm from "react-form-hook"
 // import { yupResolver } from "@yu"
@@ -30,7 +31,8 @@ export default function Home() {
 
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
-    const { register, loading, error } = useAuthStore()
+    const { register, loading, error, fieldErrors } = useAuthStore()
+    const { register: reg, handleSubmit, formState: { errors } } = useAuthForm()
 
     const router = useRouter()
     const { currentIndex, nextSlide, setCurrentIndex } = useIndexStore()
@@ -38,9 +40,8 @@ export default function Home() {
     UseSlide(slides.length, 4000); // Auto-advance every 5 seconds
   
     // Auto-advance every 5 seconds
-    const handleSubmit = async (e) => {
-        e.preventDefault()
-        const result = await register(email, password)
+    const onSubmit = async (data) => {
+        const result = await register(data.email, data.password)
         if (result) {
             router.push("/auth/login")
         }
@@ -62,28 +63,46 @@ export default function Home() {
                     </div>
                 </motion.div>
             </div>
-            <form onSubmit={handleSubmit} className=" md:w-[70%] lg:w-[30%] flex flex-col py-10 gap-10 justify-center p-5 rounded-lg text-center items-center container">
+            <form onSubmit={handleSubmit(onSubmit)} className=" md:w-[70%] lg:w-[30%] flex flex-col py-10 gap-10 justify-center p-5 rounded-lg text-center items-center container">
                 <h1 className="font-bold text-xl text-primary">FoodieHub</h1>
                 <div>
                   <h1 className="text-2xl font-bold text-center">Welcome To FoodieHub</h1>
                   <p className="text-center">Register to get started!</p>
                 </div>
                 <div className="w-[280px] mx-auto flex flex-col gap-4 mt-5">
-                    <input
-                    type="text"
-                    placeholder="Email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="text-dark border-b border-primary p-2 focus:outline-none focus:border-primary transition duration-500 ease-in-out"
-                    />
-                    <input
-                    type="password"
-                    placeholder="Password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    className=" text-dark border-b border-primary p-2 focus:outline-none focus:border-primary transition duration-500 ease-in-out"
-                    />
-                    <button type="submit" className="px-12 w-fit py-2 font-semibold active:rounded-xl hover:rounded-xl mx-auto bg-primary hover:bg-primary-fade active:bg-primary-fade text-white transition-all duration-500 ease-in-out shadow-[3px_3px_0px_black] active:shadow-none active:translate-x-[3px] active:translate-y-[3px]">
+                    <div className="flex flex-col ">
+                        <label className="text-start text-dark font-semibold">Email</label>
+                        <input
+                            {...reg("email")}
+                            type="text"
+                            placeholder="Email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            className={` ${errors.email ? "border-2 rounded-md" : " border-b"} text-dark border-primary p-1 focus:outline-none focus:border-primary transition duration-500 ease-in-out`}
+                        />
+                        <p className="text-start text-red-500">{errors.email?.message}</p>
+                        {fieldErrors?.email && (
+                            <p className="text-start text-red-500">
+                            {Array.isArray(fieldErrors.email) 
+                                ? fieldErrors.email.join(" ") 
+                                : fieldErrors.email}
+                            </p>
+                        )}
+                    </div>
+                    <div className="flex flex-col">
+                        <label className="text-start text-dark font-semibold">Password</label>
+                        <input
+                            {...reg("password")}
+                            type="password"
+                            placeholder="Password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            className={` ${errors.password ? "border-2 rounded-md" : " border-b"} text-dark border-primary p-1 focus:outline-none focus:border-primary transition duration-500 ease-in-out `}
+                        />
+                        <p className="text-start text-red-500">{errors.password?.message}</p>
+                    </div>
+                    
+                    <button type="submit" className="px-12 w-fit p-2 font-semibold active:rounded-xl hover:rounded-xl mx-auto bg-primary hover:bg-primary-fade active:bg-primary-fade text-white transition-all duration-500 ease-in-out shadow-[3px_3px_0px_black] active:shadow-none active:translate-x-[3px] active:translate-y-[3px]">
                     {loading ? "Creating account..." : "Submit"}
                     </button>
                     { error && <p className="text-red-500 font-semibold">{error}</p> }

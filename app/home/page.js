@@ -10,6 +10,9 @@ import useUserStore from "@/store/useUserStore";
 import useAuthStore from "@/store/useAuthStore";
 import { useFoodFilter } from "@/store/filters/useFoodFilter";
 import { useRouter } from "next/navigation";
+import { BarLoader } from "@/framer/loader/barLoader";
+import Image from "next/image";
+import Link from "next/link";
 
 export default function Page() {
     const { openModal } = useModalStore();
@@ -58,11 +61,22 @@ export default function Page() {
     // }
 
     if (isLoading) {
-        return <div>Loading...</div>;
+        return <div className="flex flex-col items-center justify-center h-screen">
+            <Image
+            width={200} height={200}
+                src="/svg/hamburger-animate.svg" alt="img" />
+            <BarLoader />
+            <p className="text-center">Loading foods...</p>
+        </div>;
     }
 
     if (isError) {
-        return <div>Failed to load foods. Please try again later.</div>;
+        return <div className="flex flex-col items-center justify-center h-screen">
+            <Image
+            width={200} height={200}
+            src={"/svg/sorry-animate.svg"} alt="img" />
+            <p className="text-center">Couldn&apos; t load our foods chief, Please try again later.</p>
+        </div>;
     }
     
     return (
@@ -209,7 +223,10 @@ export default function Page() {
             <SpringModal />
         </div>
         :
-        <p>Unauthorized access</p>
+        <div className="flex flex-col items-center justify-center h-screen">
+            <Image width={300} height={300} src="/svg/401-animate.svg" alt="img" />
+            <p className="text-center font-bold">Unauthorized access. Click <Link href={'auth/login'} className="text-secondary" >here</Link> to login</p>
+        </div>
         )
     );
 }

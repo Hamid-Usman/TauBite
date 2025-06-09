@@ -7,6 +7,8 @@ import { createOrder } from "@/app/api/createOrder";
 import { useEffect, useState } from "react";
 import { useCartStore } from "@/store/useCartStore";
 import { useDeleteCartItem } from "@/app/api/deleteFromCart";
+import Image from "next/image";
+import { BarLoader } from "@/framer/loader/barLoader";
 
 function Cart() {
     const {data: carts, isLoading, isError} = useGetCart();
@@ -51,6 +53,7 @@ function Cart() {
 
     const handleDelete = (id) => {
         deleteCartItem({ id})
+        window.location.reload();
     }
 
     useEffect(() => {
@@ -72,18 +75,32 @@ function Cart() {
     }, 0) ?? 0;
 
     if (isLoading) {
-        return <div>Loading...</div>;
+        return (
+            <div className="flex flex-col items-center justify-center h-screen">
+                <Image
+                width={200} height={200}
+                    src="/svg/cart-animate.svg" alt="img" />
+                <BarLoader />
+                <p className="text-center">Loading Cart...</p>
+            </div>
+        )
     }
 
     if (isError) {
         return <div>Failed to load cart items. Please try again later.</div>;
     }
+    if (!carts || carts.length === 0) {
+        return <div className="flex flex-col items-center justify-center h-[85vh]">
+            <Image
+            width={200} height={200}
+                src="/svg/empty-animate.svg" alt="img" />
+            <p className="text-center">No items in your cart yet</p>
+        </div>;
+    }
 
     return (
         <section>
             <div className="flex flex-col gap-3">
-                {carts.length > 0 ? (
-                    <>
                         <h3 className="font-bold">My Cart ({carts.length} Items)</h3>
                         {Array.isArray(carts) && carts.map((data) => (
                             <CartItem 
@@ -178,10 +195,6 @@ function Cart() {
                                 </a>.</p>
                             </div>
                         )}
-                    </>
-                ) : (
-                    <p>No items in your cart yet</p>
-                )}
             </div>
         </section>
     )

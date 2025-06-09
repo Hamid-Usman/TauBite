@@ -21,7 +21,7 @@ export default function Page() {
     const { user, fetchUser} = useAuthStore();
     const token = useAuthStore.getState().token
     const { name, setName, tags, setTags, price, setPrice } = useFoodFilter();
-    const [ clicked, setClicked ] = useState()
+    // const [ clicked, setClicked ] = useState()
     const [clickedTag, setClickedTag] = useState("");
     const router = useRouter();
 

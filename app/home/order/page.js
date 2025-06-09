@@ -1,11 +1,13 @@
 "use client"
 import useGetOrders from "@/app/api/getOrders";
 import { OrderTable } from "@/components/orderTable";
+import { BarLoader } from "@/framer/loader/barLoader";
 import { OrderLog } from "@/framer/modals/orderLog";
 import useAuthStore from "@/store/useAuthStore";
 import { useModalStore } from "@/store/useModalStore";
 import { useOrderStore } from "@/store/useOrderStore";
 import { AnimatePresence } from "framer-motion";
+import Image from "next/image";
 import { useEffect } from "react";
 
 export default function Carts() {
@@ -34,7 +36,14 @@ export default function Carts() {
         });
     };
 
-    if (isLoading) return <>Loading orders...</>;
+    if (isLoading)
+        return <div className="flex flex-col items-center justify-center h-screen">
+            <Image
+            width={200} height={200}
+                src="/svg/list-animate.svg" alt="img" />
+            <BarLoader />
+            <p className="text-center">Loading foods...</p>
+        </div>;
     if (isError) return <p>Error loading orders: {error?.message}</p>;
 
     return (

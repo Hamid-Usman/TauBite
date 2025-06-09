@@ -1,7 +1,7 @@
 import { BarLoader } from "@/framer/loader/barLoader"
 import Image from "next/image"
 
-export const Loader = ({src, text}) => {
+export const Loader = (src, text) => {
     <div className="flex flex-col items-center justify-center h-screen">
         <Image
         width={200} height={200}

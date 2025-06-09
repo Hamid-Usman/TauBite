@@ -42,10 +42,20 @@ export default function Carts() {
             width={200} height={200}
                 src="/svg/list-animate.svg" alt="img" />
             <BarLoader />
-            <p className="text-center">Loading foods...</p>
+            <p className="text-center">Loading Orders...</p>
         </div>;
     if (isError) return <p>Error loading orders: {error?.message}</p>;
 
+    if (!orders || orders.length === 0) {
+        return (
+            <div className="flex flex-col items-center justify-center h-screen">
+                <Image
+                    width={200} height={200}
+                    src="/svg/search-bro.svg" alt="No Orders" />
+                <p className="text-center">You have no orders yet.</p>
+            </div>
+        );
+    }
     return (
         <section>
             <div className="flex flex-col gap-3">
@@ -54,15 +64,14 @@ export default function Carts() {
                         <thead>
                             <tr className="bg-gray-200">
                                 <th className="p-2 text-left w-1/4">Order ID</th>
-                                <th className="p-2 text-left w-1/4">Date</th>
+                                <th className="p-2 text-left w-1/4">Date/Time of Order</th>
                                 <th className="p-2 text-left w-1/4">Total</th>
                                 <th className="p-2 text-left w-1/4">Status</th>
                             </tr>
                         
                         </thead>
                         <tbody className="">
-                            {orders && orders.length > 0 ? (
-                                orders.map((order) => (
+                                {orders.map((order) => (
                                     <OrderTable
                                         key={order.id}
                                         id={order.id}
@@ -71,12 +80,10 @@ export default function Carts() {
                                         status={order.status}
                                         onClick={() => handleOrderClick(order)}
                                     />
-                                ))
-                            ) : (
-                                <p>No orders made yet</p>
-                            )}
+                                    ))
+                                }
                         </tbody>
-                </table>
+                    </table>
             </div>
             
             <AnimatePresence>

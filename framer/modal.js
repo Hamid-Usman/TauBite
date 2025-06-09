@@ -101,7 +101,7 @@ const SpringModal = ({ data }) => {
                     <button
                       onClick={decrement}
                       type="button"
-                      className="flex items-center justify-center cursor-pointer rounded-full w-8 h-8 bg-dark text-white"
+                      className="flex items-center justify-center cursor-pointer rounded-full w-8 h-8 bg-secondary text-white"
                     >
                       -
                     </button>
@@ -109,7 +109,7 @@ const SpringModal = ({ data }) => {
                     <button
                       onClick={increment}
                       type="button"
-                      className="cursor-pointer rounded-full w-8 h-8 bg-dark text-white"
+                      className="flex justify-center items-center cursor-pointer rounded-full w-8 h-8 bg-secondary text-white"
                     >
                       +
                     </button>

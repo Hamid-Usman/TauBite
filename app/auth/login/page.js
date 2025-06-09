@@ -13,22 +13,24 @@ import { useIndexStore } from "@/store/useIndexStore";
 import { yupResolver } from '@hookform/resolvers/yup';
 import { AuthSchema } from "@/schemas/authSchema";
 import { useForm } from 'react-hook-form';
+import eyes  from "../../../public/svg/Eyes-bro.svg";
+import welcome  from "../../../public/svg/Welcome-bro.svg"
 import { useAuthForm } from "@/schemas/resolvers/authResolver";
 
 
 const slides = [
-  {
-    id: 1,
-    icon: eating,
-    content: "First slide content",
-    bgColor: "bg-blue-500",
-  },
-  {
-    id: 2,
-    icon: eating,
-    content: "First slide content",
-    bgColor: "bg-blue-500",
-  }
+    {
+        id: 1,
+        icon: eyes,
+        content: "Hmm. A user, huh?",
+        // bgColor: "bg-blue-500",
+    },
+    {
+        id: 2,
+        icon: welcome,
+        content: "Welcome to FoodieHub",
+        // bgColor: "bg-blue-500",
+    }
 ];
 
 export default function Home() {
@@ -70,7 +72,7 @@ export default function Home() {
                 <h1 className="font-bold text-xl text-primary">FoodieHub</h1>
                 <div>
                     <h1 className="text-2xl font-bold text-center">Welcome Back!</h1>
-                    <p className="text-center">Register to get started!</p>
+                    <p className="text-center">Log Into Your Account</p>
                     
                     <div className="w-[280px] mx-auto flex flex-col gap-4 mt-5">
                         <div className="flex flex-col">

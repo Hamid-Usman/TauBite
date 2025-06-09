@@ -12,7 +12,7 @@ export default function Layout({ children }) {
         <div className=" w-full mx-auto flex flex-col">
             <header className="py-2 px-3 sm:px-14 lg:px-28 w-full sticky z-50 top-0 bg-primary text-white flex flex-col justify-between">
                 <div className="flex items-center justify-between">
-                    <Link href={"/home"} className="text-2xl font-bold">My App</Link>
+                    <Link href={"/home"} className="text-2xl font-bold text-cream">FoodieHub</Link>
 
                     <CgMenuRightAlt onClick={!isOpen ? openMenu : closeMenu} />
                 </div>

@@ -118,7 +118,7 @@ function Cart() {
                             <select 
                                 value={deliveryLocation}
                                 onChange={(e) => setDeliveryLocation(e.target.value)}
-                                className="w-full p-2 border-2 border-primary rounded-md focus:outline-none focus:border-primary transition duration-500 ease-in-out"
+                                className="scroll-smooth w-full p-2 border-2 border-primary rounded-md focus:outline-none focus:border-primary transition duration-500 ease-in-out"
                             >
                                 <option value="">Select location</option>
                                 <optgroup label="East Campus">

@@ -82,8 +82,11 @@ const page = () => {
                 className={`${sectionLayout}flex flex-col gap-4`}>
                 <h1 className='text-6xl text-primary'>&quot;</h1>
                 <h3 className='text-2xl text-primary italic'>
-                &quot;Loremaipnmcascm adf madfioaspd afdoipasmc adaodmasmdafafczxcsa fadfc asdfcsaf aefcasdfafasefc faf afasd a.m afdkasd&quot;</h3>
-                <p className='font-bold italic'>- Ahmad Sardauna Maiyaki</p>
+                    &quot; Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum. Cras venenatis euismod malesuada. Etiam porta sem malesuada magna mollis euismod. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
+                    Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Sed posuere consectetur est at lobortis. Curabitur blandit tempus porttitor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ullamcorper nulla non metus auctor fringilla.
+                    Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Aenean lacinia bibendum nulla sed consectetur. Nulla vitae elit libero, a pharetra augue. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.&quot;
+                </h3>
+                <p className='font-bold italic'>- Hamid Usman</p>
             </motion.div>
             <motion.div
                 initial={fadeUp.initial}

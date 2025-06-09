@@ -5,6 +5,8 @@ import { SpotlightButton } from "@/framer/spotlight";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import useAuthStore from "@/store/useAuthStore";
+import eyes  from "../../../public/svg/Eyes-bro.svg";
+import welcome  from "../../../public/svg/Welcome-bro.svg"
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { useIndexStore } from "@/store/useIndexStore";
@@ -16,15 +18,15 @@ import { useAuthForm } from "@/schemas/resolvers/authResolver";
 const slides = [
   {
     id: 1,
-    icon: eating,
-    content: "First slide content",
-    bgColor: "bg-blue-500",
+    icon: eyes,
+    content: "Hmm. A user, huh?",
+    // bgColor: "bg-blue-500",
   },
   {
     id: 2,
-    icon: eating,
-    content: "Second slide content",
-    bgColor: "bg-blue-500",
+    icon: welcome,
+    content: "Welcome to FoodieHub",
+    // bgColor: "bg-blue-500",
   }
 ];
 export default function Home() {
@@ -66,8 +68,8 @@ export default function Home() {
             <form onSubmit={handleSubmit(onSubmit)} className=" md:w-[70%] lg:w-[30%] flex flex-col py-10 gap-10 justify-center p-5 rounded-lg text-center items-center container">
                 <h1 className="font-bold text-xl text-primary">FoodieHub</h1>
                 <div>
-                  <h1 className="text-2xl font-bold text-center">Welcome To FoodieHub</h1>
-                  <p className="text-center">Register to get started!</p>
+                    <h1 className="text-2xl font-bold text-center">Welcome To FoodieHub</h1>
+                    <p className="text-center">Register to get started!</p>
                 </div>
                 <div className="w-[280px] mx-auto flex flex-col gap-4 mt-5">
                     <div className="flex flex-col ">

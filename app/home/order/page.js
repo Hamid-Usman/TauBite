@@ -34,7 +34,7 @@ export default function Carts() {
         });
     };
 
-    if (isLoading) return <p>Loading orders...</p>;
+    if (isLoading) return <>Loading orders...</>;
     if (isError) return <p>Error loading orders: {error?.message}</p>;
 
     return (
@@ -45,6 +45,7 @@ export default function Carts() {
                         <thead>
                             <tr className="bg-gray-200">
                                 <th className="p-2 text-left w-1/4">Order ID</th>
+                                <th className="p-2 text-left w-1/4">Date</th>
                                 <th className="p-2 text-left w-1/4">Total</th>
                                 <th className="p-2 text-left w-1/4">Status</th>
                             </tr>
@@ -56,6 +57,7 @@ export default function Carts() {
                                     <OrderTable
                                         key={order.id}
                                         id={order.id}
+                                        order_date={order.order_date}
                                         total_sum={order.total_sum}
                                         status={order.status}
                                         onClick={() => handleOrderClick(order)}

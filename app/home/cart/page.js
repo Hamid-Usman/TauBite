@@ -6,6 +6,7 @@ import useAuthStore from "@/store/useUserStore";
 import { createOrder } from "@/app/api/createOrder";
 import { useEffect, useState } from "react";
 import { useCartStore } from "@/store/useCartStore";
+import { useDeleteCartItem } from "@/app/api/deleteFromCart";
 
 function Cart() {
     const {data: carts, isLoading, isError} = useGetCart();
@@ -13,6 +14,7 @@ function Cart() {
     const { user, token, fetchUser } = useAuthStore();
     const { clearCart } = useCartStore();
     const cartItemIds = carts?.map(item => item.id);
+    const {mutate: deleteCartItem} = useDeleteCartItem();
     const [deliveryLocation, setDeliveryLocation] = useState("");
     const [paymentInitiated, setPaymentInitiated] = useState(false);
     const [paymentUrl, setPaymentUrl] = useState("");
@@ -46,6 +48,10 @@ function Cart() {
             setPaymentInitiated(false);
         }
     };
+
+    const handleDelete = (id) => {
+        deleteCartItem({ id})
+    }
 
     useEffect(() => {
         if (token && !user) {
@@ -82,10 +88,12 @@ function Cart() {
                         {Array.isArray(carts) && carts.map((data) => (
                             <CartItem 
                                 key={data.id} 
+                                id={data.id} 
                                 image={data.food_item.image} 
                                 name={data.food_item.name} 
                                 quantity={data.quantity} 
                                 price={data.food_item.price} 
+                                onClick={handleDelete}
                             />
                         ))}
                         <div>

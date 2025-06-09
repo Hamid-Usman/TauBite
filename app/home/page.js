@@ -183,7 +183,7 @@ export default function Page() {
                 <div className="flex flex-col">
                     <label className="font-semibold">Max Price:</label>
                     <select className="bg-gray-300 w-[180px] py-3 px-2 rounded-lg">
-                        <option onClick={() => setPrice("")}>-</option>
+                        <option onClick={() => setPrice("")}>{price ? price : "-"}</option>
                         <option onClick={() => setPrice("1000")}>1000</option>
                         <option onClick={() => setPrice("1500")}>1500</option>
                         <option onClick={() => setPrice("2000")}>2000</option>

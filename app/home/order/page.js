@@ -1,11 +1,13 @@
 "use client"
 import useGetOrders from "@/app/api/getOrders";
 import { OrderTable } from "@/components/orderTable";
+import { BarLoader } from "@/framer/loader/barLoader";
 import { OrderLog } from "@/framer/modals/orderLog";
 import useAuthStore from "@/store/useAuthStore";
 import { useModalStore } from "@/store/useModalStore";
 import { useOrderStore } from "@/store/useOrderStore";
 import { AnimatePresence } from "framer-motion";
+import Image from "next/image";
 import { useEffect } from "react";
 
 export default function Carts() {
@@ -34,7 +36,14 @@ export default function Carts() {
         });
     };
 
-    if (isLoading) return <p>Loading orders...</p>;
+    if (isLoading)
+        return <div className="flex flex-col items-center justify-center h-screen">
+            <Image
+            width={200} height={200}
+                src="/svg/list-animate.svg" alt="img" />
+            <BarLoader />
+            <p className="text-center">Loading foods...</p>
+        </div>;
     if (isError) return <p>Error loading orders: {error?.message}</p>;
 
     return (
@@ -45,6 +54,7 @@ export default function Carts() {
                         <thead>
                             <tr className="bg-gray-200">
                                 <th className="p-2 text-left w-1/4">Order ID</th>
+                                <th className="p-2 text-left w-1/4">Date</th>
                                 <th className="p-2 text-left w-1/4">Total</th>
                                 <th className="p-2 text-left w-1/4">Status</th>
                             </tr>
@@ -56,6 +66,7 @@ export default function Carts() {
                                     <OrderTable
                                         key={order.id}
                                         id={order.id}
+                                        order_date={order.order_date}
                                         total_sum={order.total_sum}
                                         status={order.status}
                                         onClick={() => handleOrderClick(order)}

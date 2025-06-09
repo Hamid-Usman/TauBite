@@ -13,23 +13,25 @@
 }
 
 body {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-inter), sans-serif;
   @apply bg-white;
 }
 
 @theme {
   /* Brand */
-    --color-primary: #2e3192;
-    --color-primary-fade: #5a5fc4;
-    --color-secondary: #6c757d;
+    --color-primary: #800000;
+    --color-primary-fade: #58181F;
+    --color-secondary: #E2725B;
+    /* --color-secondary-fade: #F5D0C5 */
     --color-success: #28a745;
     --color-info: #17a2b8;
     --color-warning: #ffc107;
     --color-danger: #dc3545;
     --color-light: #e1e5ee;
-    --color-white: #f8f9fa;
+    --color-white: #ffffff;
     --color-dark: #343a40;
     --color-sky: #0084d1;
+    --color-cream: #FFF9F5;
 
     --color-danger: #dc3545;
 
@@ -58,4 +60,12 @@ body {
       }
     }
 
+}
+
+.bg-image {
+  background-image: url('../public/img/pizza-1317699_1280.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  
 }

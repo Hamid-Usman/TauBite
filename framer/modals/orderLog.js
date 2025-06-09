@@ -63,9 +63,11 @@ export const OrderLog = ({ food_items, total_sum,
           <select value={status} onChange={handleStatusChange}>
             <option value="Pending">Pending</option>
             <option value="Processing">Processing</option>
+            <option value="Delivering">Delivering</option>
             <option value="Delivered">Delivered</option>
             <option value="Completed">Completed</option>
-          </select>}
+          </select>
+          }
         </p>
 
         {formOpen && <ReviewModal />}

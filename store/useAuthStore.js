@@ -44,37 +44,37 @@ const useAuthStore = create(
         }
       },
 
-register: async (email, password) => {
-  set({ loading: true, error: null, fieldErrors: {} }); // Reset errors
-  
-  try {
-    const res = await axios.post(`${apiUrl}/auth/users/`, {
-		email,
-		password,
-		re_password: password,
-    });
-    return res.data;
-  } catch (err) {
-    const errorData = err.response?.data;
-    
-    // Handle field-specific errors
-    if (errorData && typeof errorData === 'object') {
-      set({ 
-        fieldErrors: errorData, // Store field errors separately
-        error: "Please fix the errors below" // General message
-      });
-    } 
-    // Handle string/non-field errors
-    else {
-      set({ 
-        error: typeof errorData === 'string' ? errorData : "Failed to create account",
-        fieldErrors: {}
-      });
-    }
-  } finally {
-    set({ loading: false });
-  }
-},
+      register: async (email, password) => {
+        set({ loading: true, error: null, fieldErrors: {} }); // Reset errors
+        
+        try {
+          const res = await axios.post(`${apiUrl}/auth/users/`, {
+          email,
+          password,
+          re_password: password,
+          });
+          return res.data;
+        } catch (err) {
+          const errorData = err.response?.data;
+          
+          // Handle field-specific errors
+          if (errorData && typeof errorData === 'object') {
+            set({ 
+              fieldErrors: errorData, // Store field errors separately
+              error: "Please fix the errors below" // General message
+            });
+          } 
+          // Handle string/non-field errors
+          else {
+            set({ 
+              error: typeof errorData === 'string' ? errorData : "Failed to create account",
+              fieldErrors: {}
+            });
+          }
+        } finally {
+          set({ loading: false });
+        }
+      },
 
       fetchUser: async () => {
         const token = get().token;

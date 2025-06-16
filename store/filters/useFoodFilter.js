@@ -2,7 +2,7 @@ import { create } from "zustand";
 
 export const useFoodFilter = create((set) => ({
     name: "",
-    tags: [],
+    tags: "",
     price: 0,
     setName: (name => set({ name })),
     setTags: (tags => set({ tags })),

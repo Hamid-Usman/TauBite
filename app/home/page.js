@@ -13,6 +13,7 @@ import { useRouter } from "next/navigation";
 import { BarLoader } from "@/framer/loader/barLoader";
 import Image from "next/image";
 import Link from "next/link";
+import { useDebounce } from "use-debounce";
 
 export default function Page() {
     const { openModal } = useModalStore();
@@ -21,21 +22,9 @@ export default function Page() {
     const { user, fetchUser} = useAuthStore();
     const token = useAuthStore.getState().token
     const { name, setName, tags, setTags, price, setPrice } = useFoodFilter();
-    // const [ clicked, setClicked ] = useState()
+    const [debouncedName] = useDebounce(name, 500); // Debounce search input for 500ms
     const [clickedTag, setClickedTag] = useState("");
     const router = useRouter();
-
-    // Tag filter configuration
-    const tagOptions = [
-        { value: "5", label: "Halal" },
-        { value: "2", label: "Vegan" },
-        { value: "7", label: "Nut-Free" },
-        { value: "10", label: "Muscle Recovery" },
-        { value: "14", label: "Budget Friendly" },
-        { value: "15", label: "Soda" },
-        { value: "8", label: "Energy Boost" },
-        { value: "13", label: "Pastry" },
-    ];
 
     // Handle tag selection
     const handleTagToggle = (tagValue) => {
@@ -97,8 +86,11 @@ export default function Page() {
                     
                     <input
                         placeholder="Search name..."
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
+                        value={name || ""}
+                        onChange={
+                            (e) => {
+                                setName(e.target.value)
+                            }}
                         className="p-2 border rounded"
                     />
                 </div> */}
@@ -191,20 +183,6 @@ export default function Page() {
                 </div>
             </div>
             <section className="flex flex-wrap gap-6 mt-5">
-                {foods?.map((food) => (
-                    <div key={food.id}>
-                        <MenuItem
-                            image={food.image}
-                            name={food.name}
-                            average_rating={food.average_rating}
-                            description={food.description}
-                            tags={food.tags}
-                            price={food.price}
-                            onClick={() => openModal(food)}
-                            // starClicked={}
-                        />
-                    </div>
-                ))}
                 {foods?.map((food) => (
                     <div key={food.id}>
                         <MenuItem

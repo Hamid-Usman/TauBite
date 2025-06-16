@@ -34,7 +34,7 @@ const page = () => {
                 <h1 className='text-2xl md:text-4xl font-bold'>Food Delivery Service <span className="relative after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-full after:h-[5px] after:bg-primary">All In One Place
                     </span>
                 </h1>
-                <p className='md:text-[16px] '>Lorem
+                <p className='py-4 md:text-[16px] '>Lorem
                     ipsum dolor sit amet consectetur adipisicing elit
                     . Quisquam, voluptatum. Quisquam, voluptatum. Quisquam, voluptatum. Quisquam, voluptatum.
                 </p>
@@ -51,7 +51,7 @@ const page = () => {
         </section>
 
         <section className='bg-gray-200 py-28 px-3 sm:px-14 lg:px-28 text-center flex flex-col items-center gap-[32px]'>
-            <p className='border w-fit px-3 py-[2px] rounded-full transition-all flex items-center'><BsLightningChargeFill className='text-primary animate-pulse' />Features</p>
+            <p className='border w-fit px-3 py-[2px] rounded-full transition-all flex items-center font-bold text-secondary'><BsLightningChargeFill className='text-primary animate-pulse' />Designed For You</p>
                 <motion.div
                     initial={fadeDown.initial}
                     whileInView={fadeDown.whileInView}

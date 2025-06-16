@@ -4,9 +4,11 @@ import { useMenuStore } from "@/store/useMenu";
 import { slideLeft } from "@/framer/slideLeft";
 import { CgMenuRightAlt } from "react-icons/cg";
 import Link from "next/link";
+import useAuthStore from "@/store/useAuthStore";
 
 export default function Layout({ children }) {
     const { openMenu, isOpen, closeMenu } = useMenuStore();
+    const { user, fetchUser} = useAuthStore();
 
     return (
         <div className=" w-full mx-auto flex flex-col">

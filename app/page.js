@@ -34,7 +34,7 @@ const page = () => {
                 <h1 className='text-2xl md:text-4xl font-bold'>Food Delivery Service <span className="relative after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-full after:h-[5px] after:bg-primary">All In One Place
                     </span>
                 </h1>
-                <p className='py-4 md:text-[16px] '>Lorem
+                <p className='md:text-lg py-4 text-gray '>Lorem
                     ipsum dolor sit amet consectetur adipisicing elit
                     . Quisquam, voluptatum. Quisquam, voluptatum. Quisquam, voluptatum. Quisquam, voluptatum.
                 </p>
@@ -50,27 +50,25 @@ const page = () => {
             <Image src={heroImg} alt='' height={350} className=' '/>
         </section>
 
-        <section className='bg-gray-200 py-28 px-3 sm:px-14 lg:px-28 text-center flex flex-col items-center gap-[32px]'>
-            <p className='border w-fit px-3 py-[2px] rounded-full transition-all flex items-center font-bold text-secondary'><BsLightningChargeFill className='text-primary animate-pulse' />Designed For You</p>
-                <motion.div
-                    initial={fadeDown.initial}
-                    whileInView={fadeDown.whileInView}
-                    exit={{y:50, opacity: 0}}
-                    transition={fadeDown.transition}
-                    className='max-w-[900px]'>
-                    <h1 className='text-xl md:text-3xl font-bold'><span className='text-primary'>Advanced Technologies</span> For A Smooth Workflow</h1>
-                    <p className=''>Lorem
-                        ipsum dolor sit amet consectetur adipisicing elit
-                        . Quisquam, voluptatum. Quisquam, voluptatum. Quisquam, voluptatum. Quisquam, voluptatum.
-                    </p>
-                </motion.div>
-                <div className='w-full flex flex-wrap justify-center gap-5'>
-                    <CardItems icon={food1} heading="Secured Payment Integration" description="Lorem text over here" />
-                    <CardItems icon={food1} heading="Simplied User Interface" description="Lorem text over here" />
-                    <CardItems icon={food1} heading="`" description="Lorem text over here" />
-                    <CardItems icon={food1} heading="Fast Response" description="Lorem text over here" />
-                    <CardItems icon={food1} heading="Fast Response" description="Lorem text over here" />
-                </div>
+        <section className='py-28 px-3 sm:px-8 lg:px-16 flex flex-col items-center gap-[32px]'>
+            <p className='border font-bold w-fit px-3 py-[2px] rounded-full transition-all flex items-center'><BsLightningChargeFill className='text-primary animate-pulse' />Features</p>
+            <motion.div
+                initial={fadeDown.initial}
+                whileInView={fadeDown.whileInView}
+                exit={{y:50, opacity: 0}}
+                transition={fadeDown.transition}
+                className='max-w-[700px]'>
+                <h1 className='text-xl md:text-4xl text-center font-semibold'><span className='text-primary'>Affordable Perfumes, </span>Just For You</h1>
+                <p className='text-lg py-4 text-gray'>Lorem
+                    ipsum dolor sit amet consectetur adipisicing elit
+                    . Quisquam, voluptatum. Quisquam, voluptatum. Quisquam, voluptatum. Quisquam, voluptatum.
+                </p>
+            </motion.div>
+            <div className='w-full grid md:grid-cols-2 gap-8'>
+                <CardItems icon={food1} heading="Secured Payment Integration" description="Lorem text over here" />
+                <CardItems icon={food1} heading="Secured Payment Integration" description="Lorem text over here" />
+                <CardItems icon={food1} heading="Secured Payment Integration" description="Lorem text over here" />
+            </div>
         </section>
 
         <section className="px-4 sm:px-20 pb-32 flex flex-col items-center">

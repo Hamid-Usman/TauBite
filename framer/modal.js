@@ -95,24 +95,27 @@ const SpringModal = ({ data }) => {
                   ))}
                 </div>
 
-                <div className="my-2 flex items-center gap-5">
-                  <h3 className="font-bold text-lg">N{totalPrice}</h3>
-                  <div className="bg-gray-200 w-fit rounded-full flex gap-2 items-center">
-                    <button
-                      onClick={decrement}
-                      type="button"
-                      className="flex items-center justify-center cursor-pointer rounded-full w-8 h-8 bg-secondary text-white"
-                    >
-                      -
-                    </button>
-                    {count}
-                    <button
-                      onClick={increment}
-                      type="button"
-                      className="flex justify-center items-center cursor-pointer rounded-full w-8 h-8 bg-secondary text-white"
-                    >
-                      +
-                    </button>
+                <div className="mt-4 flex flex-row justify-between items-center gap-3">
+                  
+                  <div className="flex gap-5">
+                    <h3 className="font-bold text-lg">N{totalPrice}</h3>
+                    <div className="bg-gray-200 w-fit rounded-full flex gap-2 items-center">
+                      <button
+                        onClick={decrement}
+                        type="button"
+                        className="flex items-center justify-center cursor-pointer rounded-full w-8 h-8 bg-secondary text-white"
+                      >
+                        -
+                      </button>
+                      {count}
+                      <button
+                        onClick={increment}
+                        type="button"
+                        className="flex justify-center items-center cursor-pointer rounded-full w-8 h-8 bg-secondary text-white"
+                      >
+                        +
+                      </button>
+                    </div>
                   </div>
                   <button
                     onClick={handleAddToCart}

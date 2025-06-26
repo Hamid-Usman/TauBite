@@ -14,14 +14,16 @@ import { BarLoader } from "@/framer/loader/barLoader";
 import Image from "next/image";
 import Link from "next/link";
 import { useDebounce } from "use-debounce";
+import { useTags } from "../api/getTags";
 
 export default function Page() {
     const { openModal } = useModalStore();
+    const { data: tagData = [], isLoading: isTagLoading, isError: isTagError } = useTags();
     const { data: foods, isLoading, isError } = useGetFoods();
     const setFood = useFoodsStore((state) => state.setFood);
     const { user, fetchUser} = useAuthStore();
     const token = useAuthStore.getState().token
-    const { name, setName, tags, setTags, price, setPrice } = useFoodFilter();
+    const { name, setName, tags, setTags, price, setPrice, resetTag } = useFoodFilter();
     const [debouncedName] = useDebounce(name, 500); // Debounce search input for 500ms
     const [clickedTag, setClickedTag] = useState("");
     const router = useRouter();
@@ -30,8 +32,14 @@ export default function Page() {
     const handleTagToggle = (tagValue) => {
         setClickedTag((prev) => {
             const isActive = prev === tagValue;
-            setTags(isActive ? "" : tagValue);
-            return isActive ? "" : tagValue;
+            if (isActive) {
+                resetTag()
+                return "";
+            }
+            else {
+                setTags(tagValue);
+                return tagValue;
+            }
         });
     };
 
@@ -97,88 +105,36 @@ export default function Page() {
                 <div className="flex flex-col gap-1">
                     
                     <p className="font-semibold">Filter by: </p>
-                    <div className="sm:grid grid-cols-3 gap-3">
-                        <div className="flex items-center gap-2">
-                            <input
-                                type="radio"
-                                checked={clickedTag === "5"}
-                                onChange={() => handleTagToggle("5")}
-                                className={`text-sm p-2 w-fit rounded-lg transition-all duration-500 ${clickedTag === "5" ? "bg-primary text-white" : "bg-gray-300"}`}
-                            />
-                            <label>Halal</label>
-                        </div>
-                        <div className="flex items-center gap-2">
-                            <input
-                                type="radio"
-                                checked={clickedTag === "2"}
-                                onChange={() => handleTagToggle("2")}
-                                className={`text-sm p-2 w-fit rounded-lg transition-all duration-500 ${clickedTag === "2" ? "bg-primary text-white" : "bg-gray-300"}`}
-                            />
-                            <label>Vegan</label>
-                        </div>
-                        <div className="flex items-center gap-2">
-                            <input
-                                type="radio"
-                                checked={clickedTag === "7"}
-                                onChange={() => handleTagToggle("7")}
-                                className={`text-sm p-2 w-fit rounded-lg transition-all duration-500 ${clickedTag === "7" ? "bg-primary text-white" : "bg-gray-300"}`}
-                            />
-                            <label>Nut-Free</label>
-                        </div>
-                        <div className="flex items-center gap-2">
-                            <input
-                                type="radio"
-                                checked={clickedTag === "10"}
-                                onChange={() => handleTagToggle("10")}
-                                className={`text-sm p-2 w-fit rounded-lg transition-all duration-500 ${clickedTag === "10" ? "bg-primary text-white" : "bg-gray-300"}`}
-                            />
-                            <label>Muscle Recovery</label>
-                        </div>
-                        <div className="flex items-center gap-2">
-                            <input
-                                type="radio"
-                                checked={clickedTag === "14"}
-                                onChange={() => handleTagToggle("14")}
-                                className={`text-sm p-2 w-fit rounded-lg transition-all duration-500 ${clickedTag === "14" ? "bg-primary text-white" : "bg-gray-300"}`}
-                            />
-                            <label>Budget Friendly</label>
-                        </div>
-                        <div className="flex items-center gap-2">
-                            <input
-                                type="radio"
-                                checked={clickedTag === "15"}
-                                onChange={() => handleTagToggle("15")}
-                                className={`text-sm p-2 w-fit rounded-lg transition-all duration-500 ${clickedTag === "15" ? "bg-primary text-white" : "bg-gray-300"}`}
-                            />
-                            <label>Soda</label>
-                        </div>
-                        <div className="flex items-center gap-2">
-                            <input
-                                type="radio"
-                                checked={clickedTag === "8"}
-                                onChange={() => handleTagToggle("8")}
-                                className={`text-sm p-2 w-fit rounded-lg transition-all duration-500 ${clickedTag === "8" ? "bg-primary text-white" : "bg-gray-300"}`}
-                            />
-                            <label>Energy Boost</label>
-                        </div>
-                        <div className="flex items-center gap-2">
-                            <input
-                                type="radio"
-                                checked={clickedTag === "13"}
-                                onChange={() => handleTagToggle("13")}
-                                className={`text-sm p-2 w-fit rounded-lg transition-all duration-500 ${clickedTag === "13" ? "bg-primary text-white" : "bg-gray-300"}`}
-                            />
-                            <label>Pastry</label>
-                        </div>
+                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                        {tagData?.map((tag) => (
+                                <div key={tag.id} className="flex items-center gap-2">
+                                    <input
+                                        type="checkbox"
+                                        id={`tag-${tag.id}`}
+                                        name="food-tags"
+                                        checked={clickedTag === tag.id.toString()}
+                                        onChange={() => handleTagToggle(tag.id.toString())}
+                                        className={`text-sm p-2 w-fit rounded-lg transition-all duration-500 ${
+                                            clickedTag === tag.id.toString()
+                                                ? "bg-primary text-white"
+                                                : "bg-gray-300"
+                                        }`}
+                                    />
+                                    <label htmlFor={`tag-${tag.id}`}>{tag.tag}</label>
+                                </div>
+                            ))}
                     </div>
                 </div>
                 <div className="flex flex-col">
-                    <label className="font-semibold">Max Price:</label>
+                    <label className="font-semibold">Max Price (N):</label>
                     <select className="bg-gray-300 w-[180px] py-3 px-2 rounded-lg">
-                        <option onClick={() => setPrice("")}>{price ? price : "-"}</option>
+                        <option className="bg-primary text-white" onClick={() => setPrice("")}>{price ? price : "-"}</option>
                         <option onClick={() => setPrice("1000")}>1000</option>
                         <option onClick={() => setPrice("1500")}>1500</option>
                         <option onClick={() => setPrice("2000")}>2000</option>
+                        {price && (
+                            <option onClick={() => setPrice("")}>Remove Price</option>
+                        )}
                     </select>
                 </div>
             </div>
@@ -188,6 +144,7 @@ export default function Page() {
                         <MenuItem
                             image={food.image}
                             name={food.name}
+                            icons={food.tags ? food.tags.map(tag => tag[0]) : []}
                             average_rating={food.average_rating}
                             description={food.description}
                             tags={food.tags}

@@ -6,5 +6,6 @@ export const useFoodFilter = create((set) => ({
     price: 0,
     setName: (name => set({ name })),
     setTags: (tags => set({ tags })),
-    setPrice: (price => set({ price }))
+    setPrice: (price => set({ price })),
+    resetTag: () => set({ tags: "" }),
 }))

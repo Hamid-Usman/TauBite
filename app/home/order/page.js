@@ -72,14 +72,16 @@ export default function Carts() {
                         </thead>
                         <tbody className="">
                                 {orders.map((order) => (
-                                    <OrderTable
-                                        key={order.id}
-                                        id={order.id}
-                                        order_date={order.order_date}
-                                        total_sum={order.total_sum}
-                                        status={order.status}
-                                        onClick={() => handleOrderClick(order)}
-                                    />
+                                    order.status !== "failed" && (
+                                        <OrderTable
+                                            key={order.id}
+                                            id={order.id}
+                                            order_date={order.order_date}
+                                            total_sum={order.total_sum}
+                                            status={order.status}
+                                            onClick={() => handleOrderClick(order)}
+                                        />
+                                    )
                                     ))
                                 }
                         </tbody>

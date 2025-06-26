@@ -62,31 +62,39 @@ export default function RootLayout({ children }) {
         <html lang="en">
         <body className={`${inter.variable} antialiased`}>
             <QueryClientProvider client={queryClient}>
-            <header className="sticky top-0 z-50 w-full flex items-center justify-between px-6 py-5 bg-primary text-cream">
-                <h1 className="text-2xl">FoodieHub</h1>
-                <nav>
-                    
-                    <CgMenuRightAlt className="md:hidden" onClick={!isOpen ? openMenu : closeMenu} />
-                    <ul className="hidden md:flex gap-2">
+                <header className="sticky top-0 z-50 w-full flex items-center justify-between px-6 py-5 bg-primary text-cream">
+                    <h1 className="text-2xl">FoodieHub</h1>
+                    <nav>
+                        
+                        <CgMenuRightAlt className="md:hidden" onClick={!isOpen ? openMenu : closeMenu} />
+                        <ul className="hidden md:flex gap-2">
+                            <li>GitHub</li>
+                            <li>GitHub</li>
+                        </ul>
+                    </nav>
+                </header>
+                {isOpen && (
+                    <motion.ul
+                    initial={{y: -600}}
+                    animate={{y: 0}}
+                    exit={{y: -100}}
+                    transition={{ duration: 0.8, delay: 0.2 }} className="h-full px-6 text-cream bg-primary fixed w-full z-40 flex flex-col gap-2">
                         <li>GitHub</li>
+                        <li>GitHub</li>
+                    </motion.ul>
+                )}
+                <main className="">
+                    {children}
+                </main>
+                <footer className="bg-primary flex gap-[24px] flex-wrap items-center justify-center">
+                    <p className="text-cream text-sm">
+                        © By Hamid Usman
+                    </p>
+                    <ul className="flex gap-4 text-cream text-sm">
+                        <li>API</li>
                         <li>GitHub</li>
                     </ul>
-                </nav>
-            </header>
-            {isOpen && (
-                <motion.ul
-                initial={{y: -600}}
-                animate={{y: 0}}
-                exit={{y: -100}}
-                transition={{ duration: 0.8, delay: 0.2 }} className="h-full px-6 text-cream bg-primary fixed w-full z-40 flex flex-col gap-2">
-                    <li>GitHub</li>
-                    <li>GitHub</li>
-                </motion.ul>
-            )}
-            <main className="">
-                {children}
-            </main>
-            <footer className="bg-primary flex gap-[24px] flex-wrap items-center justify-center"></footer>
+                </footer>
             </QueryClientProvider>
         </body>
         </html>

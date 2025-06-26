@@ -7,21 +7,32 @@ export const ReviewModal = () => {
   const { formData, closeForm } = useReviewModalStore();
   const { mutate: RateItem } = useRateItemMutation()
   const [rating, setRating ] = useState(0)
+  const [comment, setComment ] = useState('')
   const emojis = ["😡", "😕", "😐", "😊", "😍"];
 
   if (!formData || !formData.item) return null;
 
-  const { item, order_id } = formData; //formData is for ReviewModalData
+  const { item, id } = formData; //formData is for ReviewModalData
   const handleEmojiClick = (index) => {
       setRating(index + 1);
   }
+  const handleComment = (e) => {
+    setComment(e.target.value)
+  }
 
   const addReview = () => {
+    console.log({
+      order_item: item.order_item_id,
+      order: id,
+      rating,
+      comment
+});
     RateItem(
       {
-        order_item: item.id,
-        rating: rating,
-        comment: "Good job"
+        order_item: item.order_item_id,
+        rating,
+        comment,
+        order: id
       },{
       onSuccess: () => {
         console.log("it works!");
@@ -31,7 +42,6 @@ export const ReviewModal = () => {
         console.log("It doesnt work: ", err.response?.data);
       }
     }
-      
     );
   };
   return (
@@ -42,7 +52,7 @@ export const ReviewModal = () => {
         className="review-modal bg-white p-4 md:px-20 rounded shadow-lg flex flex-col"
    
         >
-        <h1 className="text-lg mb-4 font-bold">Rate Item: {item.name}</h1>
+        <h1 className="text-lg mb-4 font-bold">Rate Item: {id}</h1>
         
         <div className="flex gap-2 md:gap-4 mt-4 justify-center">
             {emojis.map((emoji, index) => (
@@ -67,8 +77,8 @@ export const ReviewModal = () => {
         )}
 
         <div className='flex flex-col'>
-            <label>Leave a comment (optional)</label>
-            <textarea className='focus:outline-none border-2 border-primary p-1'></textarea>
+            <label>Leave a comment (optional) </label>
+            <textarea onChange={handleComment} className='focus:outline-none border-2 border-primary p-1'></textarea>
         </div>
         
         <button

@@ -114,57 +114,25 @@ function Cart() {
                     />
                 ))}
                 <div>
-                    <label>Delivery/Pickup point</label>
+                    <label>Drop Zone/Delivery point</label>
                     <select 
                         value={deliveryLocation}
                         onChange={(e) => setDeliveryLocation(e.target.value)}
                         className="scroll-smooth w-full p-2 border-2 border-primary rounded-md focus:outline-none focus:border-primary transition duration-500 ease-in-out"
                     >
-                        <option value="">Select location</option>
-                        <optgroup label="East Campus">
-                            <option value="east-cafeteria">Cafeteria (East)</option>
+                        <optgroup label="Off-Campus" className="">
+                            <option value="Jambulu" className="">Jambulu</option>
+                            <option value="Zango">Zango</option>
+                            <option value="Danraka">Danraka</option>
+                            <option value="Shika">Shika</option>
                             {/* other options... */}
                         </optgroup>
-                        <optgroup label="Campuses">
-                            <option value="east-campus">East Campus</option>
-                            <option value="west-campus">West Campus</option>
-                        </optgroup>
-                        
-                        {/* Cafeterias */}
-                        <optgroup label="Cafeterias">
-                            <option value="east-cafeteria">East Cafeteria (Per Spoon)</option>
-                            <option value="west-cafeteria">West Cafeteria (Per Spoon)</option>
-                        </optgroup>
-                        
-                        {/* Noodle Spots */}
-                        <optgroup label="Noodle Spots">
-                            <option value="east-noodles">East Noodles (Per Wrap)</option>
-                            <option value="west-noodles">West Noodles (Per Wrap)</option>
-                        </optgroup>
-                        
-                        {/* Hostels */}
-                        <optgroup label="Hostels - East Campus">
-                            <option value="east-male-hostel">Male Hostel</option>
-                            <option value="east-female-hostel">Female Hostel</option>
-                        </optgroup>
-                        
-                        <optgroup label="Hostels - West Campus">
-                            <option value="west-male-hostel-1">Male Hostel 1</option>
-                            <option value="west-male-hostel-2">Male Hostel 2</option>
-                            <option value="west-female-hostel-1">Female Hostel 1</option>
-                            <option value="west-female-hostel-2">Female Hostel 2</option>
-                        </optgroup>
-                        
-                        {/* Faculties */}
-                        <optgroup label="Faculties - West Campus">
-                            <option value="management">Management</option>
-                            <option value="law">Law</option>
-                        </optgroup>
-                        {/* Clinics */}
-                        <optgroup label="Clinics">
-                            <option value="east-clinic">East Campus Clinic</option>
-                            <option value="west-clinic">West Campus Clinic</option>
-                            <option value="omc">OMC</option>
+                        <optgroup label="Main Campus">
+                            <option value="Suleiman Hall">Suleiman Hall</option>
+                            <option value="Amina Hall">Amina Hall</option>
+                            <option value="Ribadu Hall">Ribadu Hall</option>
+                            <option value="Dangote Hall">Dangote Hall</option>
+                            {/* other options... */}
                         </optgroup>
                         {/* other optgroups... */}
                     </select>

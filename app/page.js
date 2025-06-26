@@ -31,7 +31,7 @@ const page = () => {
                 transition={fadeDown.transition}
                 className='md:w-[659px] flex flex-col items-center gap-2 text-center'>
                 <p className='border w-fit px-3 py-[2px] rounded-full transition-all flex items-center'><BsLightningChargeFill className='text-primary animate-pulse' /> Product Under Development</p>
-                <h1 className='text-2xl md:text-4xl font-bold'>Food Delivery Service <span className="relative after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-full after:h-[5px] after:bg-primary">All In One Place
+                <h1 className='text-2xl md:text-5xl font-bold'>Food Delivery Service <span className="relative after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-full after:h-[5px] after:bg-primary">All In One Place
                     </span>
                 </h1>
                 <p className='md:text-lg py-4 text-gray '>Lorem
@@ -58,16 +58,16 @@ const page = () => {
                 exit={{y:50, opacity: 0}}
                 transition={fadeDown.transition}
                 className='max-w-[700px]'>
-                <h1 className='text-xl md:text-4xl text-center font-semibold'><span className='text-primary'>Affordable Perfumes, </span>Just For You</h1>
-                <p className='text-lg py-4 text-gray'>Lorem
+                <h1 className='text-xl md:text-4xl text-center font-semibold'><span className='text-primary'>Amazing Food And Drinks, </span>Just For You</h1>
+                <p className='text-center text-lg py-4 text-gray'>Lorem
                     ipsum dolor sit amet consectetur adipisicing elit
                     . Quisquam, voluptatum. Quisquam, voluptatum. Quisquam, voluptatum. Quisquam, voluptatum.
                 </p>
             </motion.div>
             <div className='w-full grid md:grid-cols-2 gap-8'>
-                <CardItems icon={food1} heading="Secured Payment Integration" description="Lorem text over here" />
-                <CardItems icon={food1} heading="Secured Payment Integration" description="Lorem text over here" />
-                <CardItems icon={food1} heading="Secured Payment Integration" description="Lorem text over here" />
+                <CardItems icon={food1} heading="Secured Payment Integration" description="With the use of Paystack, We ensure safe and seamless transactions with end-to-end encryption for all your payments" />
+                <CardItems icon={food1} heading="Filtered Items" description="Easily find exactly what you crave with our advanced filters - search by dietary needs (vegan, gluten-free), price range, cuisine type, or special tags." />
+                <CardItems icon={food1} heading="Easy to Follow Design" description="Lorem text over here" />
             </div>
         </section>
 
@@ -78,13 +78,13 @@ const page = () => {
                 transition={fadeUp.transition}
                 
                 className={`${sectionLayout}flex flex-col gap-4`}>
-                <h1 className='text-6xl text-primary'>&quot;</h1>
-                <h3 className='text-2xl text-primary italic'>
-                    &quot; Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum. Cras venenatis euismod malesuada. Etiam porta sem malesuada magna mollis euismod. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
+                <h1 className='text-4xl font-bold'>&quot;</h1>
+                <h3 className='text-2xl text-gray italic'>
+                    &quot;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum. Cras venenatis euismod malesuada. Etiam porta sem malesuada magna mollis euismod. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
                     Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Sed posuere consectetur est at lobortis. Curabitur blandit tempus porttitor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ullamcorper nulla non metus auctor fringilla.
                     Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Aenean lacinia bibendum nulla sed consectetur. Nulla vitae elit libero, a pharetra augue. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.&quot;
                 </h3>
-                <p className='font-bold italic'>- Hamid Usman</p>
+                <p className='font-bold italic text-primary'>- Hamid Usman</p>
             </motion.div>
             <motion.div
                 initial={fadeUp.initial}

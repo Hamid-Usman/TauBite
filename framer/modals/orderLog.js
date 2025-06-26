@@ -35,14 +35,14 @@ export const OrderLog = ({ food_items, total_sum,
 
         {Array.isArray(food_items) &&
           food_items.map((item) => (
-            <div key={item.id} className="flex items-center gap-2 mb-3 border-b pb-2">
+            <div key={item.order_item_id} className="flex items-center gap-2 mb-3 border-b pb-2">
               <p>
                 {item.name} x {item.quantity} (${item.price_at_order})
               </p>
-              {!user.is_staff && (
-                
+              {/* {!user.is_staff && (
+                  */}
                 <button
-                  className={`mt-1 px-3 py-1 text-sm bg-blue-500 text-white rounded ${item.status !== "delivered" ? "opacity-50 cursor-not-allowed" : ""}`}
+                  className={`mt-1 px-3 py-1 text-sm bg-primary text-white rounded ${status !== "Completed" ? "hidden" : ""}`}
                   onClick={() =>
                     openForm({
                       item,
@@ -52,7 +52,7 @@ export const OrderLog = ({ food_items, total_sum,
                 >
                   Leave a Review
                 </button>
-              )}
+              {/* )} */}
             </div>
           ))}
 

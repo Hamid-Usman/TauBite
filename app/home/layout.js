@@ -52,12 +52,12 @@ export default function Layout({ children }) {
 
             <footer className="static bottom-2 bg-primary flex py-1 gap-[24px] flex-wrap items-center justify-center">
                 <p className="text-cream text-sm">
-                    © By Hamid Usman
+                    © By Hamid Usman <Link className="text-secondary" href={"https://github.com/Hamid-Usman/TauBite"}>🔗  Github</Link>
                 </p>
                 <ul className="flex flex-col sm:flex-row text-center gap-4 text-cream text-sm">
                     <li>Powered by: NextJS Django Tailwind FramerMotion</li>
                     <li>
-                        <Link className="" href={"https://github.com/Hamid-Usman/TauBite"}>Github</Link>
+                        
                     </li>
                 </ul>
             </footer>

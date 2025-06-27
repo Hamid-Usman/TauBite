@@ -4,7 +4,7 @@ import { CiStar } from "react-icons/ci";
 export const MenuItem = ({id, image, name, icons, average_rating, rating_count, description, price, onClick, tags}) => {
 
     return (
-        <div onClick={onClick} key={id} className="p-2 pb-4 flex flex-col gap-3 border-gray-300 border w-[190px] rounded-lg bg-white active:bg-primary-fade transition duration-500 ease-in-out">
+        <div onClick={onClick} key={id} className="p-2 pb-4 flex flex-col gap-3 border-gray-300 border menu-size rounded-lg bg-white active:bg-primary-fade transition duration-500 ease-in-out">
             {image ? (
                 <Image src={image} width={120} height={300} className="rounded-md w-full h-[100px]" alt="food image" />
             ) : null}
@@ -12,7 +12,7 @@ export const MenuItem = ({id, image, name, icons, average_rating, rating_count, 
                 <div className="flex justify-between items-center gap-2">
                     
                     <h5 className="font-semibold text-wrap w-fit">{name}</h5>
-                    <p className="text-xs">{icons}</p>
+                    <p className="text-xs hidden">{icons}</p>
                 </div>
                 <div className=" gap-2">
                     <p className="text-[12px] text-gray-500 hidden">{description}</p>

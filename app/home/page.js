@@ -136,7 +136,7 @@ export default function Page() {
                     </select>
                 </div>
             </div>
-            <section className="flex flex-wrap gap-6 mt-5">
+            <section className="flex flex-wrap sm:p-1 gap-4 mt-5 ">
                 {foods?.map((food) => (
                     <div key={food.id}>
                         <MenuItem

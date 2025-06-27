@@ -62,7 +62,14 @@ body {
     }
 
 }
-
+.menu-size {
+    @media (width <= 400px) {
+        width: 155px; /* 0.25rem = 4px */;
+    }
+    @media (width >= 400px) {
+      width: 190px;
+    }
+}
 .bg-image {
   background-image: url('../public/img/pizza-1317699_1280.jpg');
   background-position: center;

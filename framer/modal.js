@@ -40,7 +40,7 @@ const SpringModal = ({ data }) => {
       onSuccess: () => {
         console.log(`${modalData.name} x${count} added to cart`);
         reset();
-        setSuccess("Item added to cart!")
+        setSuccess( `${count} ${modalData.name} added to cart!`)
         setSubmitting(false);
 
       },
@@ -71,22 +71,21 @@ const SpringModal = ({ data }) => {
             onClick={(e) => e.stopPropagation()}
             className="bg-white text-dark p-4 h-fit rounded-lg w-[320px] md:w-[720px] shadow-xl cursor-default relative overflow-hidden"
           >
-            <div className="md:flex relative justify-between z-10 w-full">
-              <div className="bg-white md:w-[1000px] h-full mb-2 rounded-full text-3xl grid place-items-center mx-auto">
+            <div className="md:flex relative z-10 w-full">
+              <div className="bg-white md:w-fit h-full mb-2 rounded-full text-3xl grid place-items-center mx-auto">
                 <Image
                   src={modalData?.image}
                   alt={modalData?.name}
-                  className="w-[80%] h-[250px]"
+                  className="w-[250px] h-[250px]"
                   width={50}
                   height={50}
                 />
               </div>
-              <div>
+              <div className="md:w-1/2">
                 <h3 className="text-2xl font-bold mb-2">{modalData?.name}</h3>
-                <p className="mb-6">
+                <p className="mb-6 ">
                   Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam,
-                  voluptatibus. Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Quisquam, voluptatibus.
+                  voluptatibus. Lorem ipsum 
                 </p>
                 <div className="flex flex-wrap gap-2">
                   

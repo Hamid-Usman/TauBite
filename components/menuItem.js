@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { CiStar } from "react-icons/ci";
 
-export const MenuItem = ({id, image, name, icons, average_rating, description, price, onClick, tags}) => {
+export const MenuItem = ({id, image, name, icons, average_rating, rating_count, description, price, onClick, tags}) => {
 
     return (
         <div onClick={onClick} key={id} className="p-2 pb-4 flex flex-col gap-3 border-gray-300 border w-[190px] rounded-lg bg-white active:bg-primary-fade transition duration-500 ease-in-out">
@@ -26,7 +26,7 @@ export const MenuItem = ({id, image, name, icons, average_rating, description, p
                         >
                         N{price}
                     </p>
-                    <p className="flex items-center gap-1"><CiStar className="text-yellow-500" /> {average_rating}</p>
+                    <p className="flex items-center gap-1"><CiStar className="text-yellow-500" /> {average_rating} <span className="hidden">{rating_count}</span></p>
                 </div>
             </div>
         

@@ -120,8 +120,8 @@ function Cart() {
                         onChange={(e) => setDeliveryLocation(e.target.value)}
                         className="scroll-smooth w-full p-2 border-2 border-primary rounded-md focus:outline-none focus:border-primary transition duration-500 ease-in-out"
                     >
-                        <optgroup label="Off-Campus" className="">
-                            <option value="Jambulu" className="">Jambulu</option>
+                        <optgroup label="Off-Campus">
+                            <option value="Jambulu">Jambulu</option>
                             <option value="Zango">Zango</option>
                             <option value="Danraka">Danraka</option>
                             <option value="Shika">Shika</option>

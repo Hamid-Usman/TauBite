@@ -86,12 +86,12 @@ export default function RootLayout({ children }) {
                 <main className="">
                     {children}
                 </main>
-                <footer className="bg-primary flex gap-[24px] flex-wrap items-center justify-center">
+                <footer className="bg-primary flex py-1 gap-[24px] flex-wrap items-center justify-center">
                     <p className="text-cream text-sm">
                         © By Hamid Usman
                     </p>
                     <ul className="flex gap-4 text-cream text-sm">
-                        <li>API</li>
+                        <li>Powered by: NextJS Django Tailwind FramerMotion</li>
                         <li>GitHub</li>
                     </ul>
                 </footer>

@@ -8,13 +8,25 @@ import useAuthStore from "@/store/useAuthStore";
 
 import { useUpdateOrderStatus } from "@/app/api/orderStatus";
 import { useAdminOrderStore } from "@/store/admin/useAdminOrder";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { UseItemReview } from "@/app/api/getReview";
+import { useReviewStore } from "@/store/useReviewStore";
 
 export const OrderLog = ({ food_items, total_sum,
   status, id, onClick }) => {
   const { formOpen, openForm } = useReviewModalStore();
   const { mutate: updateOrderStatus } = useUpdateOrderStatus();
   const [localStatus, setLocalStatus] = useState(status);
+  const { data: fetchedReviews } = UseItemReview(id)
+  const { reviews, setReviews } = useReviewStore()
+
+  useEffect(() => {
+    if (fetchedReviews) {
+      setReviews(fetchedReviews)
+    }}
+  , [fetchedReviews, setReviews])
+
+  console.log(reviews)
 
   const handleStatusChange = (e) => {
     const newStatus = e.target.value;
@@ -33,28 +45,43 @@ export const OrderLog = ({ food_items, total_sum,
       >
         <h2 className="text-lg font-bold mb-2">Order #{id} Details</h2>
 
-        {Array.isArray(food_items) &&
-          food_items.map((item) => (
-            <div key={item.order_item_id} className="flex items-center gap-2 mb-3 border-b pb-2">
-              <p>
-                {item.name} x {item.quantity} (${item.price_at_order})
-              </p>
-              {/* {!user.is_staff && (
-                  */}
-                <button
-                  className={`mt-1 px-3 py-1 text-sm bg-primary text-white rounded ${status !== "Completed" ? "hidden" : ""}`}
-                  onClick={() =>
-                    openForm({
-                      item,
-                      id,
-                    })
-                  }
-                >
-                  Leave a Review
-                </button>
-              {/* )} */}
-            </div>
-          ))}
+{Array.isArray(food_items) &&
+  food_items.map((item) => {
+    const review = reviews.find((r) => r.order_item === item.order_item_id);
+
+    return (
+      <div key={item.order_item_id} className={`flex gap-1 mb-3 border-b pb-2 ${review ? "flex-col" : " items-center justify-between"}`}>
+        <p>
+          {item.name} x {item.quantity} (${item.price_at_order})
+        </p>
+
+        {review ? (
+          <div className="text-sm text-gray-600 bg-gray-100 p-2 rounded">
+            <p className="font-medium text-gray-700">✓ Reviewed</p>
+            <p className="text-xs">Comment: {review.comment}</p>
+            <p className="text-xs">Rating: {review.rating} / 5</p>
+          </div>
+        ) : (
+          user?.is_staff &&
+          localStatus === "Completed" && (
+            <button
+              className="mt-1 px-3 py-1 text-sm bg-primary text-white rounded"
+              onClick={() =>
+                openForm({
+                  item,
+                  id,
+                })
+              }
+            >
+              Leave a Review
+            </button>
+          )
+        )}
+      </div>
+    );
+  })}
+
+
 
         <p>Total Price: ₦{total_sum}</p>
         <p className="mt-5">

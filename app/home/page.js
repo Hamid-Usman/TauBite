@@ -79,13 +79,13 @@ export default function Page() {
     return (
         (token ? 
             
-        <div className="flex flex-col">
+        <div className=" flex flex-col">
             <div className="flex flex-col">
                 <h3 className="text-lg">
                     Welcome back{user ? `, ${user.email}` : ""}!
                 </h3>
                 <p className="text-xl font-extralight">
-                    Get the <span className="font-bold">Best Bites</span> Around TAU
+                    Get the <span className="font-bold">Best Bites</span> Around Town
                 </p>
             </div>
             <div className="flex flex-col sm:flex-row gap-4 mt-5">
@@ -128,13 +128,11 @@ export default function Page() {
                 <div className="flex flex-col">
                     <label className="font-semibold">Max Price (N):</label>
                     <select className="bg-gray-300 w-[180px] py-3 px-2 rounded-lg">
-                        <option className="bg-primary text-white" onClick={() => setPrice("")}>{price ? price : "-"}</option>
+                        <option className="bg-primary text-white" onClick={() => setPrice("")}>{price ? `${price} (clear) `  : "-"}</option>
+                        <option onClick={() => setPrice("500")}>500</option>
                         <option onClick={() => setPrice("1000")}>1000</option>
                         <option onClick={() => setPrice("1500")}>1500</option>
                         <option onClick={() => setPrice("2000")}>2000</option>
-                        {price && (
-                            <option onClick={() => setPrice("")}>Remove Price</option>
-                        )}
                     </select>
                 </div>
             </div>
@@ -146,6 +144,7 @@ export default function Page() {
                             name={food.name}
                             icons={food.tags ? food.tags.map(tag => tag[0]) : []}
                             average_rating={food.average_rating}
+                            rating_count={food.rating_count}
                             description={food.description}
                             tags={food.tags}
                             price={food.price}

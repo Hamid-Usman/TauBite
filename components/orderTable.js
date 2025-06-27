@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const OrderTable = ({id, total_sum, order_date, status, onClick}) => {
+export const OrderTable = ({id, total_sum, order_date, order_time, status, onClick}) => {
     return (
         <tr
             key={id}
@@ -16,7 +16,8 @@ export const OrderTable = ({id, total_sum, order_date, status, onClick}) => {
         >
             <td className="p-2 align-top">{id}</td>
             <td className="p-2 align-top">{order_date}</td>
-            <td className="p-2">₦{total_sum}</td>
+            <td className="p-2 align-top">{order_time}</td>
+            <td className="p-2 hidden sm:flex">₦{total_sum}</td>
             <td className="p-2">{status}</td>
         </tr>
     )

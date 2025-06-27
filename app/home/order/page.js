@@ -64,8 +64,9 @@ export default function Carts() {
                         <thead>
                             <tr className="bg-gray-200">
                                 <th className="p-2 text-left w-1/4">Order ID</th>
-                                <th className="p-2 text-left w-1/4">Date/Time of Order</th>
-                                <th className="p-2 text-left w-1/4">Total</th>
+                                <th className="p-2 text-left w-1/4">Date</th>
+                                <th className="p-2 text-left w-1/4">Time</th>
+                                <th className="hidden sm:flex p-2 text-left w-1/4">Total</th>
                                 <th className="p-2 text-left w-1/4">Status</th>
                             </tr>
                         
@@ -77,6 +78,7 @@ export default function Carts() {
                                             key={order.id}
                                             id={order.id}
                                             order_date={order.order_date}
+                                            order_time={order.order_time}
                                             total_sum={order.total_sum}
                                             status={order.status}
                                             onClick={() => handleOrderClick(order)}

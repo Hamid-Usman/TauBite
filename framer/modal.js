@@ -8,13 +8,14 @@ import { Backdrop } from "./backdrop";
 import { useState } from "react";
 import { useAddToCartMutation } from "@/app/api/addToCart";
 import useAuthStore from "@/store/useAuthStore";
+import { useStatusStore } from "@/store/useStatusStore";
+import { useSubmitStore } from "@/store/useSubmitStore";
 
 const SpringModal = ({ data }) => {
   const { count, increment, decrement, reset } = useCounterStore();
   const { isOpen, modalData, closeModal } = useModalStore();
-  const [submitting, setSubmitting] = useState(false);
-  const [ success, setSuccess ] =  useState('')
-  const [ error, setError ] = useState('')
+  const { submitting, setSubmitting } = useSubmitStore();
+  const {success, setSuccess, error, setError} = useStatusStore()
 
   const { mutate: addItemToCart } = useAddToCartMutation();
 

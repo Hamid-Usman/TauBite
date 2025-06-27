@@ -3,11 +3,17 @@ import { motion } from 'framer-motion';
 import { Backdrop } from '../backdrop';
 import { useReviewModalStore } from '@/useReviewModalStore';
 import { useRateItemMutation } from '@/app/api/reviewItem';
+import { useModalStore } from '@/store/useModalStore';
+import { useSubmitStore } from '@/store/useSubmitStore';
+import { useStatusStore } from '@/store/useStatusStore';
 export const ReviewModal = () => {
   const { formData, closeForm } = useReviewModalStore();
+  const { closeModal } = useModalStore()
   const { mutate: RateItem } = useRateItemMutation()
   const [rating, setRating ] = useState(0)
   const [comment, setComment ] = useState('')
+  const { submitting, setSubmitting } = useSubmitStore()
+  const { success, setSuccess, error, setError } = useStatusStore()
   const emojis = ["😡", "😕", "😐", "😊", "😍"];
 
   if (!formData || !formData.item) return null;
@@ -21,12 +27,10 @@ export const ReviewModal = () => {
   }
 
   const addReview = () => {
-    console.log({
-      order_item: item.order_item_id,
-      order: id,
-      rating,
-      comment
-});
+    setSuccess("")
+    setError("")
+    setSubmitting(true)
+
     RateItem(
       {
         order_item: item.order_item_id,
@@ -36,13 +40,17 @@ export const ReviewModal = () => {
       },{
       onSuccess: () => {
         console.log("it works!");
+        // setSuccess("Review Submitted")
+        closeModal()
         closeForm()
+
       },
       onError: (err) => {
-        console.log("It doesnt work: ", err.response?.data);
+        setError("Couldn't upload review... ");
       }
     }
     );
+      setSubmitting(false)
   };
   return (
     <Backdrop onClick={closeForm}>
@@ -52,7 +60,7 @@ export const ReviewModal = () => {
         className="review-modal bg-white p-4 md:px-20 rounded shadow-lg flex flex-col"
    
         >
-        <h1 className="text-lg mb-4 font-bold">Rate Item: {id}</h1>
+        <h1 className="text-lg mb-4 font-bold">Rate Item: {item.order_item}</h1>
         
         <div className="flex gap-2 md:gap-4 mt-4 justify-center">
             {emojis.map((emoji, index) => (
@@ -73,7 +81,7 @@ export const ReviewModal = () => {
         {rating !== null && (
           <p className="mt-4 text-lg font-semibold text-center">
             {rating} {emojis[rating - 1]}
-          </p>
+          </p> 
         )}
 
         <div className='flex flex-col'>
@@ -87,6 +95,12 @@ export const ReviewModal = () => {
         >
           Submit Review
         </button>
+        {/* {success && (
+          <p>{success}</p>
+        )} */}
+        {error && (
+          <p className='text-danger'>{error}</p>
+        )}
 
     </motion.div>
     </Backdrop>

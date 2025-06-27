@@ -10,6 +10,7 @@ import { useMenuStore } from "@/store/useMenu";
 import { motion } from "framer-motion";
 import { Inter } from "next/font/google";
 import { slideLeft } from "@/framer/slideLeft";
+import Link from "next/link";
 
 // Fonts
 const geistSans = Geist({
@@ -88,11 +89,13 @@ export default function RootLayout({ children }) {
                 </main>
                 <footer className="bg-primary flex py-1 gap-[24px] flex-wrap items-center justify-center">
                     <p className="text-cream text-sm">
-                        © By Hamid Usman
+                        © By Hamid Usman <Link className="text-secondary" href={"https://github.com/Hamid-Usman/TauBite"}>🔗  Github</Link>
                     </p>
-                    <ul className="flex gap-4 text-cream text-sm">
+                    <ul className="flex flex-col sm:flex-row text-center gap-4 text-cream text-sm">
                         <li>Powered by: NextJS Django Tailwind FramerMotion</li>
-                        <li>GitHub</li>
+                        <li>
+                            
+                        </li>
                     </ul>
                 </footer>
             </QueryClientProvider>

@@ -12,7 +12,7 @@ export default function Layout({ children }) {
 
     return (
         <div className=" p-5 w-full h-fit mx-auto flex">
-            <aside className="text-dark py-2 px-3 w-[200px] h-screen fixed top-5 z-50 top-0 bg-gray_back text-white rounded-xl flex flex-col gap-5">
+            <aside className="text-dark py-2 px-3 w-[200px] h-screen sticky top-5 z-50 top-0 bg-gray_back text-white rounded-xl flex flex-col gap-5">
                 <div className="flex items-center justify-between">
                     <Link href={"/home"} className="text-2xl text-dark font-bold">FoodieHub</Link>
 
@@ -52,7 +52,7 @@ export default function Layout({ children }) {
                 </motion.div>
             </aside>
             
-            <main className="h-screen py-2 px-3  flex flex-col gap-[32px]">
+            <main className="w-full h-screen py-2 px-3  flex flex-col gap-[32px]">
                     {children}
                     </main>
         </div>

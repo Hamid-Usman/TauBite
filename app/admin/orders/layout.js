@@ -36,7 +36,7 @@ export default function Layout({ children }) {
                 </motion.div>
             </header>
             
-            <main className="py-2 px-3 sm:px-14 lg:px-28 flex flex-col gap-[32px]">
+            <main className="h-screen py-2 px-3 sm:px-14 lg:px-28 flex flex-col gap-[32px]">
                     {children}
                     </main>
         </div>

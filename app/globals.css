@@ -12,6 +12,9 @@
   }
 }
 
+main {
+  @apply min-h-screen
+}
 body {
   font-family: var(--font-inter), sans-serif;
   @apply bg-white;
@@ -35,6 +38,7 @@ body {
 
     --color-danger: #dc3545;
     --color-gray: #4a5565;
+    --color-gray_back: #e4e7ec;
 
     
     --animate-wiggle: wiggle 1s ease-in-out infinite;
@@ -75,5 +79,6 @@ body {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  color: #e4e7ec
   
 }

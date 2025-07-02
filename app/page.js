@@ -34,9 +34,7 @@ const page = () => {
                 <h1 className='text-3xl md:text-5xl font-bold'>Food Delivery Service <span className="relative after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-full after:h-[5px] after:bg-primary">All In One Place
                     </span>
                 </h1>
-                <p className='md:text-md py-4 text-gray '>Lorem
-                    ipsum dolor sit amet consectetur adipisicing elit
-                    . Quisquam, voluptatum. Quisquam, voluptatum. Quisquam, voluptatum. Quisquam, voluptatum.
+                <p className='md:text-md py-4 text-gray '>Craving something fancy? Light? Or rejuvenating? We got what you need. We ensure quality food provided to you. One order at a time
                 </p>
             </motion.div>
             <motion.div 
@@ -60,9 +58,7 @@ const page = () => {
                 className='max-w-[700px]'>
                 <h1 className='text-2xl md:text-4xl text-center font-semibold'><span className='text-primary'>Amazing Food And Drinks, </span>Just For You</h1>
                 <p className='text-center py-4 text-gray'>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum. Cras venenatis euismod malesuada. Etiam porta sem malesuada magna mollis euismod. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-                    Integer posuere erat a ante venenatis dapibus posuere velit aliquet.
-                </p>
+                    With FoddieHub, you can order whatever you crave from our menu and we'll have it delivered to you. With us, your satisfaction is assured</p>
             </motion.div>
             <div className='w-full grid md:grid-cols-2 gap-8'>
                 <CardItems icon={food1} heading="Secured Payment" description="With the use of Paystack, We ensure safe and seamless transactions with end-to-end encryption for all your payments" />
@@ -80,8 +76,7 @@ const page = () => {
                 className={`${sectionLayout}flex flex-col gap-4`}>
                 <h1 className='text-4xl font-bold'>&quot;</h1>
                 <h3 className=' md:text-2xl text-gray italic'>
-                    &quot;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum. Cras venenatis euismod malesuada. Etiam porta sem malesuada magna mollis euismod. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-                    Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Sed posuere consectetur est at lobortis. Curabitur blandit tempus porttitor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ullamcorper nulla non metus auctor fringilla.&quot;</h3>
+                    &quot;Thank you for trying out FoodieHub. This was a project I've been on for a while now. I'll be honest, it's not easy juggling through the frontend and backend. But it is oddly enjoyable nonetheless. The core functions for the a precentable delivery system are functional, but I am looking to do more, especially with AI integration which I have been building on the backend. I appreciat you time and i hope my work so far to be sufficient for some praise : (The landing page could use some improvements tho) &quot;</h3>
                 <p className='font-bold italic text-primary'>- Hamid Usman</p>
             </motion.div>
             <motion.div

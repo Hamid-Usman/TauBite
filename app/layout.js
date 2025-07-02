@@ -67,11 +67,11 @@ export default function RootLayout({ children }) {
                     <h1 className="text-2xl">FoodieHub</h1>
                     <nav>
                         
-                        <CgMenuRightAlt className="md:hidden" onClick={!isOpen ? openMenu : closeMenu} />
-                        <ul className="hidden md:flex gap-2">
+                        {/* <CgMenuRightAlt className="md:hidden" onClick={!isOpen ? openMenu : closeMenu} /> */}
+                        {/* <ul className="hidden md:flex gap-2">
                             <li>GitHub</li>
                             <li>GitHub</li>
-                        </ul>
+                        </ul> */}
                     </nav>
                 </header>
                 {isOpen && (

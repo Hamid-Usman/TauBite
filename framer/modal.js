@@ -84,18 +84,17 @@ const SpringModal = ({ data }) => {
               </div>
               <div className="md:w-1/2">
                 <h3 className="text-2xl font-bold mb-2">{modalData?.name}</h3>
-                <p className="mb-6 ">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam,
-                  voluptatibus. Lorem ipsum 
+                <p className="h">
+                  {modalData?.description}
                 </p>
-                <div className="flex flex-wrap gap-2">
+                <div className="mt-auto flex flex-wrap gap-2">
                   
                   {modalData?.tags.map((tag) => (
                       <p className="p-2 rounded-md bg-gray-300" key={tag.id}>{tag}</p>
                   ))}
                 </div>
 
-                <div className="mt-4 flex flex-row justify-between items-center gap-3">
+                <div className="flex flex-row justify-between items-center gap-3">
                   
                   <div className="flex gap-5">
                     <h3 className="font-bold text-lg">N{totalPrice}</h3>

@@ -38,7 +38,7 @@ export default function RootLayout({ children }) {
         </QueryClientProvider>
     );
 
-    if (pathname.startsWith("/home") || pathname.startsWith("/cart")) {
+    if (pathname.startsWith("/home") || pathname.startsWith("/cart") ||  pathname.startsWith("/admin")) {
         return (
         <html lang="en">
             <head>

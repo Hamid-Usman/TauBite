@@ -70,8 +70,6 @@ function Page() {
                             className='p-2 border-2 border-gray rounded-md focus:outline-none focus:border-primary'
                         />
                     </div>
-
-                    
                     {isLoading ? (
                     <p>Loading tags...</p>
                     ) : (
@@ -93,18 +91,20 @@ function Page() {
                     <div className='flex flex-col'>
                         <label className='font-bold'>Image</label>
                         <input
-  name="image"
-  type="file"
-  accept="image/*"
-  onChange={e => {
-    const file = e.target.files?.[0] || null;
-    setForm("image", file); // Store in Zustand
-    setValue("image", file, { shouldValidate: true }); // RHF validation
-  }}
-   className='border-2 border-gray p-1 rounded-md focus:outline-none focus:border-primary'/>
+                            name="image"
+                            type="file"
+                            accept="image/*"
+                            onChange={e => {
+                                const file = e.target.files?.[0] || null;
+                                setForm("image", file); // Store in Zustand
+                                setValue("image", file, { shouldValidate: true }); // RHF validation
+                            }}
+                            className='border-2 border-gray p-1 rounded-md focus:outline-none focus:border-primary'
+                        />
                         {form.image && (
-  <p className="text-sm text-gray-600">Selected: {form.image.name}</p>
-)}<p className="text-start text-red-500">{errors.image?.message}</p>
+                            <p className="text-sm text-gray-600">Selected: {form.image.name}</p>
+                        )}
+                        <p className="text-start text-red-500">{errors.image?.message}</p>
                     </div>
                     <div className='flex flex-col'>
                         <label className='font-bold'>Price</label>

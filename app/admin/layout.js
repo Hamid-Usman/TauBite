@@ -3,18 +3,34 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useMenuStore } from "@/store/useMenu";
 import { slideLeft } from "@/framer/slideLeft";
 import { CgMenuRightAlt } from "react-icons/cg";
+import { IoMdAnalytics } from "react-icons/io";
 import Link from "next/link";
+import { TbPackages } from "react-icons/tb";
 
 export default function Layout({ children }) {
     const { openMenu, isOpen, closeMenu } = useMenuStore();
 
     return (
-        <div className=" w-full mx-auto flex flex-col">
-            <header className="py-2 px-3 sm:px-14 lg:px-28 w-full sticky z-50 top-0 bg-primary text-white flex flex-col justify-between">
+        <div className=" p-5 w-full h-fit mx-auto flex">
+            <aside className="text-dark py-2 px-3 w-[200px] h-screen fixed top-5 z-50 top-0 bg-gray_back text-white rounded-xl flex flex-col gap-5">
                 <div className="flex items-center justify-between">
-                    <Link href={"/home"} className="text-2xl font-bold">My App</Link>
+                    <Link href={"/home"} className="text-2xl text-dark font-bold">FoodieHub</Link>
 
-                    <CgMenuRightAlt onClick={!isOpen ? openMenu : closeMenu} />
+                    {/* <CgMenuRightAlt onClick={!isOpen ? openMenu : closeMenu} /> */}
+                </div>
+                <div>
+                    <p className="text-dark font-bold">Menu</p>
+                    <ol className="flex flex-col gap-2 mt-2">
+                        <li className="text-dark">Add Item</li>
+                        <li className="text-dark font-bold flex gap-2 items-center">
+                            <TbPackages size={24} className="text-primary"/>
+                            Order Log
+                        </li>
+                        <li className="text-dark flex gap-2 items-center">
+                            <IoMdAnalytics size={24} className="text-primary"/>
+                            Reviews
+                        </li>
+                    </ol>
                 </div>
                 <motion.div
                 initial={{ y: -30, height: "0px" }}
@@ -34,9 +50,9 @@ export default function Layout({ children }) {
                     </motion.nav>
                 )}
                 </motion.div>
-            </header>
+            </aside>
             
-            <main className="h-screen py-2 px-3 sm:px-14 lg:px-28 flex flex-col gap-[32px]">
+            <main className="h-screen py-2 px-3  flex flex-col gap-[32px]">
                     {children}
                     </main>
         </div>

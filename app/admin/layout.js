@@ -6,31 +6,43 @@ import { CgMenuRightAlt } from "react-icons/cg";
 import { IoMdAnalytics } from "react-icons/io";
 import Link from "next/link";
 import { TbPackages } from "react-icons/tb";
+import { TbLayoutDashboardFilled } from "react-icons/tb";
+import { NavLink } from "./components/navLink";
+import { FaBox } from "react-icons/fa";
+import { RiAddCircleFill } from "react-icons/ri";
 
 export default function Layout({ children }) {
     const { openMenu, isOpen, closeMenu } = useMenuStore();
 
     return (
         <div className=" p-5 w-full h-fit mx-auto flex">
-            <aside className="text-dark py-2 px-3 w-[200px] h-screen fixed top-5 z-50 top-0 bg-gray_back text-white rounded-xl flex flex-col gap-5">
-                <div className="flex items-center justify-between">
+            <aside className="text-dark py-2 w-[200px] h-screen fixed top-5 z-50 top-0 bg-gray_back text-white rounded-xl flex flex-col gap-5">
+                <div className="px-5 flex items-center justify-between">
                     <Link href={"/home"} className="text-2xl text-dark font-bold">FoodieHub</Link>
 
                     {/* <CgMenuRightAlt onClick={!isOpen ? openMenu : closeMenu} /> */}
-                </div>
+                </div> 
                 <div>
                     <p className="text-dark font-bold">Menu</p>
-                    <ol className="flex flex-col gap-2 mt-2">
+                    <nav className="flex flex-col gap-2 mt-2">
                         <li className="text-dark">Add Item</li>
-                        <li className="text-dark font-bold flex gap-2 items-center">
-                            <TbPackages size={24} className="text-primary"/>
-                            Order Log
-                        </li>
-                        <li className="text-dark flex gap-2 items-center">
-                            <IoMdAnalytics size={24} className="text-primary"/>
-                            Reviews
-                        </li>
-                    </ol>
+                        
+                        <NavLink 
+                            to="/admin"
+                            label="Dashboard"
+                            icon={<TbLayoutDashboardFilled  size={24}/>}
+                        />
+                        <NavLink 
+                            to="/admin/orders"
+                            label="Orders"
+                            icon={<FaBox size={24}/>}
+                        />
+                        <NavLink
+                            to="/admin/reviews"
+                            label="reviews"
+                            icon={<RiAddCircleFill size={24}/>}
+                        />
+                    </nav>
                 </div>
                 <motion.div
                 initial={{ y: -30, height: "0px" }}

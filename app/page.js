@@ -91,7 +91,7 @@ const page = () => {
             </motion.div>
         </section>
     </div>
-  )
+)
 }
 
 export default page

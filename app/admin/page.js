@@ -1,9 +1,19 @@
+"use client"
+
 import { GiStarsStack } from "react-icons/gi";
 import { Board } from "./components/board";
 import { StatPie } from "./components/statPie";
 import { BaxialChart } from "./components/baxialChart";
+import { useDashboard } from "../api/admin/dashboardStat";
+import { useEffect } from "react";
+import { useCardStore } from "@/store/admin/useCardStore";
 
 export default function Page() {
+    useDashboard();
+    const cards = useCardStore((state) => (state.cards));
+    if (!cards) {
+            return <p>Loading dashboard...</p>;
+        }
     const reportData = [
         { product: "Marques De La Fofayae", count: 30 },
         { product: "Marques De La Fofayae", count: 30 },
@@ -19,26 +29,28 @@ export default function Page() {
                 <p>Lorem writing isnt working here</p>
             </div>
             <section className="flex gap-3 mt-5">
-                <Board
-                    header="Total Orders"
-                    count="150"
-                    comment="30 unattended"
-                />
-                <Board
-                    header="Total Orders"
-                    count="150"
-                    comment="30 unattended"
-                />
-                <Board
-                    header="Total Orders"
-                    count="150"
-                    comment="30 unattended"
-                />
-                <Board
-                    header="Total Orders"
-                    count="150"
-                    comment="30 unattended"
-                />
+                
+                    <Board
+                        header="Total orders"
+                        count={cards.total_orders}
+                        // comment="30 unattended"
+                    />
+                    <Board
+                        header="Orders Completed"
+                        count={cards.orders_completed}
+                        // comment="30 unattended"
+                    />
+                    <Board
+                        header="Top Ratings"
+                        count={cards.top_ratings}
+                        // comment="30 unattended"
+                    />
+                    <Board
+                        header="Total Ratings"
+                        count={cards.total_ratings}
+                        // comment="30 unattended"
+                    />
+
             </section>
             <div className="flex gap-3 w-full">
                 

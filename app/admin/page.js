@@ -7,10 +7,14 @@ import { BaxialChart } from "./components/baxialChart";
 import { useDashboard } from "../api/admin/dashboardStat";
 import { useEffect } from "react";
 import { useCardStore } from "@/store/admin/useCardStore";
+import { useOrderChart } from "../api/admin/orderChart";
 
 export default function Page() {
     useDashboard();
     const cards = useCardStore((state) => (state.cards));
+    const { data: orderChart } = useOrderChart();
+
+    console.log(orderChart, "dd")
     if (!cards) {
             return <p>Loading dashboard...</p>;
         }
@@ -78,8 +82,7 @@ export default function Page() {
 
                     </div>
                     <div className="flex rounded-xl gap-3">
-                        <StatPie />
-                        <StatPie />
+                        <StatPie heading="Order Chart" data={orderChart} />
                     </div>
                 </section>
             </div>

@@ -9,12 +9,15 @@ import { useEffect } from "react";
 import { useCardStore } from "@/store/admin/useCardStore";
 import { useOrderChart } from "../api/admin/orderChart";
 import { useReviewDashboard } from "../api/admin/reviewDashboard";
+import { useGetAnalysis } from "../api/admin/getAnalysis";
 
 export default function Page() {
     useDashboard();
     const cards = useCardStore((state) => (state.cards));
     const { data: orderChart } = useOrderChart();
-    const {data: reviews = []} = useReviewDashboard()
+    const {data: reviews = [] } = useReviewDashboard()
+    const { data: analysis, isLoading } = useGetAnalysis()
+    console.log(analysis)
 
     console.log(orderChart, "dd")
     if (!cards) {
@@ -56,7 +59,13 @@ export default function Page() {
                 <section className="grid w-1/2 gap-4">
                     <div className="w-full h-full bg-white p-4 flex flex-col gap-2 rounded-xl">
                         <h6 className="font-semibold">AI review analysis:</h6>
-                        <p>Based On the reviews in the last 10 months, it seems like users really enjoy the Milky Doughnuts. While many others complain about the Pizza. Something about--- ?</p>
+                        {isLoading ? (
+                            <p>...</p>
+                        ) :
+                        (
+                        <p>{analysis.analysis}</p>
+                        )
+                        }
                     </div>
                     <div className="w-full h-full flex gap-4 rounded-xl">
                         <BaxialChart />
@@ -78,8 +87,7 @@ export default function Page() {
                         </ol>
                     </div>
                     <div className="flex rounded-xl gap-3">
-                        <StatPie heading="Order Chart" data={orderChart} />
-                        <StatPie heading="Order Chart" data={orderChart} />
+                        <StatPie heading="Most Ordered Items" data={orderChart} />
                     </div>
                 </section>
             </div>

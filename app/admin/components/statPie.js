@@ -14,8 +14,8 @@ export const StatPie = ({heading, data}) => {
 
 
     return (
-        <div className='w-1/2 bg-white rounded-xl'>
-            <h3>{heading}</h3>
+        <div className='w-1/2 py-5 px-3 bg-white rounded-xl'>
+            <h3 className='font-bold'>{heading}</h3>
             
             <div className="p-4 w-full h-[300px]">
                 <ResponsiveContainer width="100%" height="100%">

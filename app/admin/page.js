@@ -8,23 +8,18 @@ import { useDashboard } from "../api/admin/dashboardStat";
 import { useEffect } from "react";
 import { useCardStore } from "@/store/admin/useCardStore";
 import { useOrderChart } from "../api/admin/orderChart";
+import { useReviewDashboard } from "../api/admin/reviewDashboard";
 
 export default function Page() {
     useDashboard();
     const cards = useCardStore((state) => (state.cards));
     const { data: orderChart } = useOrderChart();
+    const {data: reviews = []} = useReviewDashboard()
 
     console.log(orderChart, "dd")
     if (!cards) {
             return <p>Loading dashboard...</p>;
         }
-    const reportData = [
-        { product: "Marques De La Fofayae", count: 30 },
-        { product: "Marques De La Fofayae", count: 30 },
-        { product: "Marques De La Fofayae", count: 30 },
-        { product: "Marques De La Fofayae", count: 30 },
-        { product: "Marques De La Fofayae", count: 30 }
-    ]
 
     return (
         <div className="p-3 py-5 bg-gray_back h-fit bg-gray_back flex flex-col gap-3 rounded-xl">
@@ -72,16 +67,18 @@ export default function Page() {
                     <div className="w-full h-fit p-4 rounded-xl bg-white">
                         <p className="font-semibold">Latest Orders</p>
                         <ol className="px-4 flex flex-col gap-1">
-                            <li className="flex justify-between items-center gap-2">ID ksse-dfed-ht4q2-q245<span className="text-success font-bold">Completed</span></li>
-                            <li className="flex justify-between items-center gap-2">ID ksse-dfed-ht4q2-q245<span className="text-success font-bold">Completed</span></li>
-                            <li className="flex justify-between items-center gap-2">ID ksse-dfed-ht4q2-q245<span className="text-success font-bold">Completed</span></li>
-                            <li className="flex justify-between items-center gap-2">ID ksse-dfed-ht4q2-q245<span className="text-success font-bold">Completed</span></li>
-                            <li className="flex justify-between items-center gap-2">ID ksse-dfed-ht4q2-q245<span className="text-success font-bold">Completed</span></li>
-                            <li className="flex justify-between items-center gap-2">ID ksse-dfed-ht4q2-q245<span className="text-success font-bold">Completed</span></li>
+                            {reviews.map((review, index) => (
+                            <li key={index} className="flex justify-between items-center gap-40">
+                                {review.food_item}
+                                <span className="text-success font-bold">
+                                {review.average_rating}
+                                </span>
+                            </li>
+                            ))}
                         </ol>
-
                     </div>
                     <div className="flex rounded-xl gap-3">
+                        <StatPie heading="Order Chart" data={orderChart} />
                         <StatPie heading="Order Chart" data={orderChart} />
                     </div>
                 </section>

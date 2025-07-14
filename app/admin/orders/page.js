@@ -41,9 +41,11 @@ export default function Carts() {
             <div className="flex flex-col gap-3">
                 <h3 className="font-bold">My Orders</h3>
                     <table className="w-full">
-                        <thead>
-                            <tr className="bg-gray-200">
+                        <thead className="w-full">
+                            <tr className="w-full bg-gray-200">
                                 <th className="p-2 text-left w-1/4">Order ID</th>
+                                <th className="p-2 text-left w-1/4">Date</th>
+                                <th className="p-2 text-left w-1/4">Time</th>
                                 <th className="p-2 text-left w-1/4">Total</th>
                                 <th className="p-2 text-left w-1/4">Status</th>
                             </tr>

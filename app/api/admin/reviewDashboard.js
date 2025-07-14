@@ -6,7 +6,7 @@ const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
 const getReviewDashboard = async () => {
     try {
-        const response = await axios.get(`${apiUrl}/me/rating-chart/`, {
+        const response = await axios.get(`${apiUrl}/me/top-rated/`, {
             // headers: {
             //     Authorization: `Bearer ${token}`
             // }

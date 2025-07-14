@@ -3,7 +3,7 @@ import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from 'recharts';
 
 const COLORS1 = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#A28DFF', '#FF6B6B'];
 
-export const StatPie = ({heading, data}) => {
+export const StatPie = ({heading, data, dataKey}) => {
     const data01 = [
         { name: 'Item A', value: 400 },
         { name: 'Item B', value: 300 },
@@ -22,7 +22,7 @@ export const StatPie = ({heading, data}) => {
                     <PieChart>
                     <Pie
                         data={data}
-                        dataKey="total_orders"
+                        dataKey={dataKey}
                         cx="50%"
                         cy="50%"
                         outerRadius={80}

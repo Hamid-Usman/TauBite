@@ -1,15 +1,13 @@
 "use client"
+import { TbLayoutDashboardFilled } from "react-icons/tb";
+import { FaBox } from "react-icons/fa";
+import { RiAddCircleFill } from "react-icons/ri";
+import { IoFastFoodSharp } from "react-icons/io5";
 import { motion, AnimatePresence } from "framer-motion";
 import { useMenuStore } from "@/store/useMenu";
 import { slideLeft } from "@/framer/slideLeft";
-import { CgMenuRightAlt } from "react-icons/cg";
-import { IoMdAnalytics } from "react-icons/io";
 import Link from "next/link";
-import { TbPackages } from "react-icons/tb";
-import { TbLayoutDashboardFilled } from "react-icons/tb";
 import { NavLink } from "./components/navLink";
-import { FaBox } from "react-icons/fa";
-import { RiAddCircleFill } from "react-icons/ri";
 
 export default function Layout({ children }) {
     const { openMenu, isOpen, closeMenu } = useMenuStore();
@@ -25,12 +23,16 @@ export default function Layout({ children }) {
                 <div>
                     <p className="text-dark font-bold">Menu</p>
                     <nav className="flex flex-col gap-2 mt-2">
-                        <li className="text-dark">Add Item</li>
                         
                         <NavLink 
                             to="/admin"
                             label="Dashboard"
                             icon={<TbLayoutDashboardFilled  size={24}/>}
+                        />
+                        <NavLink 
+                            to="/admin/addProduct"
+                            label="Add Product"
+                            icon={<IoFastFoodSharp size={24}/>}
                         />
                         <NavLink 
                             to="/admin/orders"

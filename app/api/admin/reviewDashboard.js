@@ -25,6 +25,7 @@ export const useReviewDashboard = () => {
         queryKey: ["ReviewDashboard"],
         queryFn: async() => {
             const data= await getReviewDashboard();
+            console.log("r")
             setReviews(data);
             return data;
         },

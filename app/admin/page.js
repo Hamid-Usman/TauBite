@@ -1,26 +1,31 @@
 "use client"
-
+import dynamic from "next/dynamic";
 import { GiStarsStack } from "react-icons/gi";
 import { Board } from "./components/board";
 import { StatPie } from "./components/statPie";
 import { BaxialChart } from "./components/baxialChart";
 import { useDashboard } from "../api/admin/dashboardStat";
-import { useEffect } from "react";
+import { react, useEffect } from "react";
 import { useCardStore } from "@/store/admin/useCardStore";
 import { useOrderChart } from "../api/admin/orderChart";
 import { useReviewDashboard } from "../api/admin/reviewDashboard";
 import { useGetAnalysis } from "../api/admin/getAnalysis";
+import { usePendingOrders } from "../api/admin/pendingOrders";
 
+// const Board = dynamic(() => import("./components/board"), {
+//   ssr: false,
+//   loading: () => <div className="bg-gray-200 rounded-xl h-[150px] w-full animate-pulse" />
+// })
 export default function Page() {
     useDashboard();
-    const cards = useCardStore((state) => (state.cards));
+    const {data: cards, isLoading: cardLoading } = useDashboard();
     const { data: orderChart } = useOrderChart();
     const {data: reviews } = useReviewDashboard()
     const { data: analysis, isLoading } = useGetAnalysis()
-    if (cards == null) {
-            return <p>Loading dashboard...</p>;
-        }
-
+    const {data: pendingOrders } = usePendingOrders()
+    if (cardLoading) {
+        return <div className="flex items-center justify-center h-screen">Loading...</div>
+    }
     return (
         <div className="p-3 py-5 bg-gray_back h-fit bg-gray_back flex flex-col gap-3 rounded-xl">
             <div>
@@ -28,27 +33,26 @@ export default function Page() {
                 <p>Lorem writing isnt working here</p>
             </div>
             <section className="flex gap-3 mt-5">
-                
-                    <Board
-                        header="Total orders"
-                        count={cards.total_orders}
-                        // comment="30 unattended"
-                    />
-                    <Board
-                        header="Orders Completed"
-                        count={cards.orders_completed}
-                        // comment="30 unattended"
-                    />
-                    <Board
-                        header="Top Ratings"
-                        count={cards.top_ratings}
-                        // comment="30 unattended"
-                    />
-                    <Board
-                        header="Total Ratings"
-                        count={cards.total_ratings}
-                        // comment="30 unattended"
-                    />
+                <Board
+                    header="Total orders"
+                    count={cards.total_orders}
+                    // comment="30 unattended"
+                />
+                <Board
+                    header="Orders Completed"
+                    count={cards.orders_completed}
+                    // comment="30 unattended"
+                />
+                <Board
+                    header="Top Ratings"
+                    count={cards.top_ratings}
+                    // comment="30 unattended"
+                />
+                <Board
+                    header="Total Ratings"
+                    count={cards.total_ratings}
+                    // comment="30 unattended"
+                />
 
             </section>
             <div className="flex gap-3 w-full">
@@ -73,10 +77,11 @@ export default function Page() {
                     <div className="w-full h-fit p-4 rounded-xl bg-white">
                         <p className="font-semibold">Latest Orders</p>
                         <ol className="px-4 flex flex-col gap-1">
-                            {reviews.map((review, index) => (
-                            <li key={index} className="flex justify-between items-center gap-40">
-                                
-                                <span className="text-success font-bold">
+                            {Array.isArray(pendingOrders) && pendingOrders.map((order, index) => (
+                            <li key={order.id} className="flex justify-between items-center gap-40">
+                                {order.id}
+                                <span className="text-primary font-bold">
+                                    {order.status}
                                 </span>
                             </li>
                             ))}

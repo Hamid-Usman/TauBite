@@ -20,15 +20,10 @@ const getDashboardStat = async () => {
 }
 
 export const useDashboard = () => {
-    const { setCards } = useCardStore();
 
     return useQuery({
         queryKey: ['board'],
-        queryFn: async () => {
-            const data = await getDashboardStat();
-            setCards(data);
-            return data;
-        },
-        staleTime: 6000
+        queryFn: getDashboardStat
+        
     })
 }

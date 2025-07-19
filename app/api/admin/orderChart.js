@@ -19,15 +19,8 @@ const getOrderChart = async () => {
 }
 
 export const useOrderChart = () => {
-    const { orderChart, setOrderChart } = useOrderChartStore();
     return useQuery({
         queryKey: ['orderChart'],
-        queryFn: async () => {
-            const data = await getOrderChart();
-            setOrderChart(data);
-            console.log(data, "order chart data");
-            return data;
-        },
-        initialData: orderChart
+        queryFn: getOrderChart,
     });
 };

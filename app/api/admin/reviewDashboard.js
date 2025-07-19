@@ -20,16 +20,8 @@ const getReviewDashboard = async () => {
 }
 
 export const useReviewDashboard = () => {
-    const { reviews, setReviews } = useReviewDashboardStore()
     return useQuery({
         queryKey: ["ReviewDashboard"],
-        queryFn: async() => {
-            const data= await getReviewDashboard();
-            console.log("r")
-            setReviews(data);
-            return data;
-        },
-        initialData: reviews
-
+        queryFn: getReviewDashboard,
     })
 }

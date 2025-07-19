@@ -2,10 +2,16 @@
  
 import React from 'react'
 import { BsLightningChargeFill } from "react-icons/bs";
+import { BiSolidFoodMenu } from "react-icons/bi";
 import food from "../public/svg/food.svg"
 import food1 from "../public/svg/food(1).svg"
 import food2 from "../public/svg/food(2).svg"
 import food3 from "../public/svg/food(3).svg"
+import pizza from "../public/img/pizza-1317699_1280.jpg"
+import spaghetti from "../public/img/spaghetti.jpg"
+import shawarma from "../public/img/Shawarma.webp"
+import hotdog from "../public/img/hotdog.jpg"
+
 import heroImg from "../public/svg/Take-away-cuate.svg"
 
 import Image from 'next/image';
@@ -15,6 +21,8 @@ import { fadeDown } from '@/framer/animations/fadeDown';
 import { StatCount } from '@/components/statCount';
 import fadeUp from '@/framer/animations/fadeUp';
 import Link from 'next/link';
+import { SpecialMenu } from '@/components/specialMenu';
+import { SP } from 'next/dist/shared/lib/utils';
 const page = () => {
     const sectionLayout = "py-28 px-3 sm:px-14 lg:px-28 text-center flex flex-col items-center gap-[32px]"
   return (
@@ -64,6 +72,38 @@ const page = () => {
                 <CardItems icon={food1} heading="Secured Payment" description="With the use of Paystack, We ensure safe and seamless transactions with end-to-end encryption for all your payments" />
                 <CardItems icon={food1} heading="Wide Range Of Options" description="Easily find exactly what you crave with our advanced filters - search by dietary needs, price range, cuisine type, or special tags." />
                 <CardItems icon={food1} heading="Easy to Follow Design" description="With a simplistic design, there's no stress in navigating your way through the app. I won't lie to you, bro" />
+            </div>
+        </section>
+
+        <section className='w-full py-28 px-3 sm:px-8 lg:px-16 flex flex-col gap-[32px] items-center'>
+            <p className='border font-bold w-fit px-3 py-[2px] rounded-full transition-all flex items-center'><BiSolidFoodMenu className='text-primary animate-pulse' />Menu</p>
+            <h1 className='text-2xl md:text-4xl font-semibold'><span className='text-primary'>Special </span>Menu</h1>
+            
+            <div className='w-full md:w-fit grid grid-cols-1 sm:grid-cols-2 gap-8'>
+                <SpecialMenu 
+                    image={pizza}
+                    product="Pepperoni Pizza"
+                    tags="Pizza, Spicy, Italian"
+                    price="N 2,000"
+                />
+                <SpecialMenu 
+                    image={spaghetti}
+                    product="Spaghetti"
+                    tags="Pasta, Spicy, Italian"
+                    price="N 2,500"
+                />
+                <SpecialMenu 
+                    image={shawarma}
+                    product="Shawarma"
+                    tags="Wrap, Spicy, Middle Eastern"
+                    price="N 4,000"
+                />
+                <SpecialMenu 
+                    image={hotdog}
+                    product="Hotdog"
+                    tags="Fast Food"
+                    price="N 4,000"
+                />
             </div>
         </section>
 
